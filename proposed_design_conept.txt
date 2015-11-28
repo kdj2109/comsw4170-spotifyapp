@@ -1,0 +1,30 @@
+Class of Users:
+    Our class of users are high school and college students.  This class likes
+    to not only listen to music, but also read news about specific artists and
+    newly released singles and albums.  Furthermore, these students like to
+    read album reviews and blog articles about their favorite artists.
+    Ideally, the users would like all of this information to be displayed
+    neatly on an artist page and would like to manage a group of their favorite
+    artists.
+
+Personas:
+    1. Jamie is a college student studying Environmental Engineering.  She
+       likes to listen to music while she's going to class and while working
+       on her problem sets.  During her down time, she enjoys keeping tabs
+       on all her favorite artists, especially Future Islands.
+    2. Rafa is a journalist student focusing on covering music.  He uses many
+       different web sources, but he has yet to find one site that can provide
+       all his music-related news needs.  He uses many news/blog articles and
+       album reviews for his own writing but wants to spend less time searching
+       on search engines.
+
+Use Cases:
+    1. Jaime wants to add Future Islands to her artists.  She clicks the
+       "My Artists" tabs on the menu bar.  She searches for Future Islands,
+       and a list of search results show below.  She finds Future Islands and
+       click the plus button next to their name.  She sees that Future Islands
+       has been added to the list in the subnav bar.
+    2. Rafa is writing an article about Slightly Stoopid and wants to find a
+       some articles and reviews on the band.  On the home page, he searches
+       for Slightly Stoopid and looks through the search results.  He reads
+       one summary and clicks on the link to the page where it was written.
