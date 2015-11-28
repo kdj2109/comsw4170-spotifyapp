@@ -3,14 +3,10 @@ User Interface Design Final Project
 
 Members:
 
-Kyle Jackson \n
-Lauren O'Connor \n
-Paddy Quinn \n
-Daria Jung \n
+Kyle Jackson, Lauren O'Connor, Paddy Quinn, Daria Jung
 
 *******************************************************************************
-Storage: ngStorage.js \n
-Script: angular.min.js \n
+Storage: ngStorage.js, Script: angular.min.js
 
 Quick tutorial on angular: https://docs.angularjs.org/tutorial
 *******************************************************************************
