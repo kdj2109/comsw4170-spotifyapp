@@ -1,4 +1,4 @@
-var spotifyApp = angular.module('spotifyApp', ['ngMaterial']);
+var spotifyApp = angular.module('artistPage', ['ngMaterial']);
 
 // HIDE THIS SOMEHOW
 var API_KEY = 'NGB9ACOOVZV9AOTEZ';
