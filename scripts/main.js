@@ -38,7 +38,6 @@ spotifyApp.controller('ArtistController', function($scope, $http, $sce) {
 
         //get top tracks from artist ID
         url = 'https://api.spotify.com/v1/artists/'+artistID+'/top-tracks?country=US';
-        console.log(url);
         $http.get(url).success(function(data){
             $scope.trackset="";
             $scope.artistData="";
@@ -53,20 +52,57 @@ spotifyApp.controller('ArtistController', function($scope, $http, $sce) {
             $scope.trackset+"' frameborder='0' width='320' height='315' style='display:inline'></iframe>";
             $scope.iframe = $sce.trustAsHtml(frame);
 
+
+
+            //get artists biographies news from echo
+
+            url = 'http://developer.echonest.com/api/v4/artist/news?callback=JSON_CALLBACK'+
+            '&format=jsonp&api_key=NGB9ACOOVZV9AOTEZ&id=spotify:artist:'+artistID;
+            $http.jsonp(url).success(function(data){
+              $scope.artistNews = data.response.news;
+              for (var i=0;i<$scope.artistNews.length;i++){
+                 $scope.artistNews[i].date_found = formatDate( $scope.artistNews[i].date_found);  
+                 $scope.artistNews[i].summary = formatText($scope.artistNews[i].summary);
+                 $scope.artistNews[i].name = formatText($scope.artistNews[i].name);              
+                
+              }
+            })
+
+
+
+
+
         }).error(function(data){
           console.log('tracks not found');
         })
-
-      }).
-      error(function(data) {
+      }).error(function(data) {
         console.log(data);
         console.log('artist not found')
       });
     }
-
-
   }
 
+var formatDate = function(datestring){
+  var monthNames = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+  ];
+
+  var date = new Date(datestring);
+  var month = monthNames[date.getMonth()];
+  var year = date.getFullYear();
+  var day = date.getDate();
+
+  return month + " "+ day + ", " + year;
+
+}
+
+var formatText = function(text){
+  text = text.replace(/<span>|<\/span>/g, '');
+  text = text.replace(/&#39;/g, '\'');
+  text = text.replace(/&#34;/g, '\"');
+
+  return text;
+}
 
 }).config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default')
