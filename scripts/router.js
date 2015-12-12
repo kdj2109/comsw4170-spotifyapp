@@ -1,4 +1,4 @@
-var spotify_app = angular.module('spotify_app', ['ngRoute', 'spotifyBrowse', 'ngMaterial']);
+var spotify_app = angular.module('spotify_app', ['ngRoute', 'spotifyControllers', 'ngMaterial']);
 
 spotify_app.config(['$routeProvider', '$mdThemingProvider',
   function($routeProvider) {
