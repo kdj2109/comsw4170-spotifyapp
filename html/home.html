@@ -36,41 +36,42 @@
       </md-content>
 
       <div class="artist-reviews">
-        <md-card flex-gt-sm="90" flex-gt-md="80">
-          <md-card-content>
-            <md-list>
-              <md-item-content>
-                <div ng-repeat="review in reviews">
+        <div ng-repeat="review in reviews">
+
+          <md-card flex-gt-sm="90" flex-gt-md="80">
+            <md-card-content>
+              <md-list>
+                <md-item-content>
                   <p>Date reviewed: {{review.date_reviewed || "No Date Found" }}</p>
                   <p>Review Name: <a target="_blank" href="{{review.url}}">{{review.name}}</a></p>
                   <p>Summary: <blockquote>{{review.summary}}</blockquote></p>
                   <md-divider hide-sm ng-if="!$last"></md-divider>
                   <md-divider hide-gt-sm ng-if="!$last"></md-divider>
-                </div>
-              <md-item-content>
-            <md-list>
+                <md-item-content>
+              <md-list>
 
-          </md-card-content>
-        </md-card>
+            </md-card-content>
+          </md-card>
+        </div>
       </div>
 
       <div class="blog-posts">
+        <div ng-repeat="post in blogPosts">
         <md-card flex-gt-sm="90" flex-gt-md="80">
           <md-card-content>
-            <md-list>
-              <md-item-content>
-                <div ng-repeat="post in blogPosts">
-                  <p>Date Posted: {{post.date_posted}}</p>
-                  <p>Blog Post Name: <a target="_blank" href="{{post.url}}">{{post.name}}</a></p>
-                  <p>Summary: <blockquote>{{post.summary}}</blockquote></p>
-                  <md-divider hide-sm ng-if="!$last"></md-divider>
-                  <md-divider hide-gt-sm ng-if="!$last"></md-divider>
-                </div>
-                 <md-item-content>
-            <md-list>
+              <md-list>
+                <md-item-content>
+                    <p>Date Posted: {{post.date_posted}}</p>
+                    <p>Blog Post Name: <a target="_blank" href="{{post.url}}">{{post.name}}</a></p>
+                    <p>Summary: <blockquote>{{post.summary}}</blockquote></p>
+                    <md-divider hide-sm ng-if="!$last"></md-divider>
+                    <md-divider hide-gt-sm ng-if="!$last"></md-divider>
+                   <md-item-content>
+              <md-list>
 
-          </md-card-content>
-        </md-card>
+            </md-card-content>
+          </md-card>
+        </div>
       </div>
 
       <div class="artist-news">
