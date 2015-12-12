@@ -5,6 +5,7 @@
     <!-- Angular Material CSS now available via Google CDN; version 0.11.2 used here -->
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.11.2/angular-material.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel-"stylesheet" href="../styles/home.css">
     <title>Spotify App</title>
 </head>
 <body ng-controller='ArtistController'>
@@ -55,7 +56,13 @@
     </div>
 
     <!--Artist Feed-->
-      <div flex="80" layout="column" layout-align="center center">
+      <div flex="80" layout="column" layout-align="center center" >
+        <div flex layout="row" layout-align="center center" ng-show=newsfeed>
+          <a href="{{}}" target="_blank"> <img src='{{artistPicture}}' style='width:200px; height:200px; display:inline;' ng-cloak></img></a>
+          <div ><h1 class="md-display-4" ng-cloak>{{artistName}}</h1></div>
+        </div>
+
+
         <div ng-bind-html=iframe>
 
         </div>
