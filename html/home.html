@@ -55,23 +55,40 @@
       </div>
 
       <div class="blog-posts">
-        <div ng-repeat="post in blogPosts">
-          <p>Date Posted: {{post.date_posted}}</p>
-          <p>Blog Post Name: <a target="_blank" href="{{post.url}}">{{post.name}}</a></p>
-          <p>Summary: <blockquote>{{post.summary}}</blockquote></p>
-          <md-divider hide-sm ng-if="!$last"></md-divider>
-          <md-divider hide-gt-sm ng-if="!$last"></md-divider>
-        </div>
+        <md-card flex-gt-sm="90" flex-gt-md="80">
+          <md-card-content>
+            <md-list>
+              <md-item-content>
+                <div ng-repeat="post in blogPosts">
+                  <p>Date Posted: {{post.date_posted}}</p>
+                  <p>Blog Post Name: <a target="_blank" href="{{post.url}}">{{post.name}}</a></p>
+                  <p>Summary: <blockquote>{{post.summary}}</blockquote></p>
+                  <md-divider hide-sm ng-if="!$last"></md-divider>
+                  <md-divider hide-gt-sm ng-if="!$last"></md-divider>
+                </div>
+                 <md-item-content>
+            <md-list>
+
+          </md-card-content>
+        </md-card>
       </div>
 
       <div class="artist-news">
         <div ng-repeat="news_item in news">
-          <p>Date Posted: {{news_item.date_posted}}</p>
-          <p>News Article Title: {{news_item.name}}</p>
-          <p>Summary: <blockquote>{{news_item.summary}}</blockquote></p>
-          <p>External Link: {{news_item.url}}</p>
-          <md-divider hide-sm ng-if="!$last"></md-divider>
-          <md-divider hide-gt-sm ng-if="!$last"></md-divider>
+          <md-card flex-gt-sm="90" flex-gt-md="80">
+          <md-card-content>
+            <md-list>
+              <md-item-content>
+                <p>Date Posted: {{news_item.date_posted}}</p>
+                <p>News Article Title:  <a target="_blank" href="{{news_item.url}}">{{news_item.name}}</a></p>
+                <p>Summary: <blockquote>{{news_item.summary}}</blockquote></p>
+                <md-divider hide-sm ng-if="!$last"></md-divider>
+                <md-divider hide-gt-sm ng-if="!$last"></md-divider>
+                <md-item-content>
+            <md-list>
+
+          </md-card-content>
+        </md-card>
         </div>
       </div>
 
