@@ -29,16 +29,20 @@
     <title>Spotify App</title>
 </head>
 <body>
-    <div id="header">
+    <!-- <div id="header">
         <i id="logo" class="fa fa-spotify fa-lg"></i>
         <a class="header-tab" href="#/home">Home</a>
         <a class="header-tab" href="#/artists">My Artists</a>
-    </div>
-    <!-- <div id="header">
-        <i class="fa fa-spotify fa-lg"></i>
->>>>>>> 4e3eeb6558e84645e5e400e02c5133826e859c4d
-
     </div> -->
+
+    <div layout="row" layout-padding class="" layout-align="space-between center">
+        <div class="nav-buttons">
+            <i class="fa fa-spotify fa-lg"></i>
+            <md-button class="md-raised"><a class="header-tab" href="#/home">Home</a></md-button>
+            <md-button class="md-raised"><a class="header-tab" href="#/artists">My Artists</a></md-button>
+        </div>
+    </div>
+
 
     <div ng-view></div>
 </body>
