@@ -5,7 +5,7 @@
 }
 
 .artist-link, a.artist-link:visited {
-    color: white;
+    color: black;
     text-decoration: none;
     font-size: 24px;
     display: block;
@@ -26,4 +26,9 @@ p {
 #search-div {
     width: 100%;
     left: 0;
+}
+
+#search-results {
+    height: 300px;
+    overflow: scroll;
 }

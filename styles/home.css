@@ -1,7 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:300);
 
 body {
-    background-color: #222;
+    background-color: #222!;
     color: #00d95a;
 	font-family: 'Open Sans', sans-serif;
 	font-weight: 300;
@@ -12,8 +12,12 @@ body {
     position: absolute;
     background-color: #191414;
 	left: 0;
-	top: 0;
+	top: -30px;
 	padding: 15px;
+}
+
+#logo {
+    color: white;
 }
 
 .header-tab, a.header-tab:visited {
@@ -33,7 +37,6 @@ body {
 
 #welcome-message {
     font-weight: 300;
-	margin-bottom: -7.5px;
 }
 
 #search {
@@ -50,8 +53,25 @@ body {
     height: 20px;
 }
 
+.bg-black {
+    background: #000;
+}
 
-
-
-
-
+blockquote {
+  background: #f9f9f9;
+  border-left: 10px solid #ccc;
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+  quotes: "\201C""\201D""\2018""\2019";
+}
+blockquote:before {
+  color: #ccc;
+  content: open-quote;
+  font-size: 4em;
+  line-height: 0.1em;
+  margin-right: 0.25em;
+  vertical-align: -0.4em;
+}
+blockquote p {
+  display: inline;
+}
