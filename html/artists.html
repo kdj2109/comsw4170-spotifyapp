@@ -1,0 +1,81 @@
+<body ng-cloak>
+    <!-- <div id="header">
+        <i class="fa fa-spotify fa-lg"></i>
+        <a class="header-tab" href="home.html">Home</a>
+        <a class="header-tab" href="myArtists.html">My Artists</a>
+    </div> -->
+
+
+    <div layout="row" layout-padding class="bg-black" layout-align="space-between center">
+      <div>
+          <md-button>Home</md-button>
+          <md-button>My Artists</md-button>
+          <md-menu>
+              <md-button md-menu-origin ng-click="$mdOpenMenu()">Help</md-button>
+              <md-menu-content width="2">
+                  <md-menu-item>
+                      <md-button>Help</md-button>
+                  </md-menu-item>
+                  <md-menu-item>
+                      <md-button>About</md-button>
+                  </md-menu-item>
+              </md-menu-content>
+          </md-menu>
+      </div>
+      <!-- <div class="nav-buttons">
+          <md-button class="md-raised md-accent">My profile</md-button>
+          <md-button class="md-raised md-warn">Log Out</md-button>
+      </div> -->
+    </div>
+
+
+<div layout="column">
+    <div flex layout="row" class="myArtists">
+      <!--List of My Artists-->
+      <div flex="20"> 
+        <md-list>
+          <md-list-item ng-click="switchArtist('newsfeed')">
+            Newsfeed
+          </md-list-item>
+          <md-list-item ng-repeat="artist in myArtists" ng-click="switchArtist(artist);">
+              <div class="md-list-item-text">
+              {{artist}}
+            </div>
+          </md-list-item>
+        </md-list>
+      </div>
+
+    <!--Artist Feed-->
+      <div flex="80" layout="column" layout-align="center center" >
+        <div flex layout="row" layout-align="center center" ng-show=newsfeed>
+          <a href="{{}}" target="_blank"> <img src='{{artistPicture}}' style='width:200px; height:200px; display:inline;' ng-cloak></img></a>
+          <div ><h1 class="md-display-4" ng-cloak>{{artistName}}</h1></div>
+        </div>
+
+
+        <div ng-bind-html=iframe>
+
+        </div>
+
+        <br>
+    </div>
+      
+
+    </div> 
+
+    <div flex>
+      <div ng-repeat="news in artistNews">
+        <a href="{{news.url}}" target="_blank" style="text-decoration:none; color:black;">
+          <md-card style="height:200px;overflow:hidden;">
+            <md-card-title>
+              <span class="md-headline">{{news.name}}</span>
+              <p class="md-subhead">{{news.date_found}}</p>
+            </md-card-title>
+            <md-card-title-media><span class="md-subhead">{{news.summary}}</span></md-card-title-media>
+          </md-card>
+         </a>
+      </div>
+    </div>
+
+</body>
+</html>
