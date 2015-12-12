@@ -1,10 +1,11 @@
-var spotify_app = angular.module('spotify_app', ['ngRoute']);
+var spotify_app = angular.module('spotify_app', ['ngRoute', 'spotifyControllers', 'ngMaterial']);
 
-spotify_app.config(['$routeProvider',
+spotify_app.config(['$routeProvider', '$mdThemingProvider',
   function($routeProvider) {
     $routeProvider.
       when('/home', {
-        templateUrl: 'home.html'
+        templateUrl: 'home.html',
+        controller: 'SearchController'
       }).
       when('/artists', {
         templateUrl: 'artists.html'
