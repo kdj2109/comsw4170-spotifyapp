@@ -19,7 +19,7 @@ Personas:
        on search engines.
 
 Use Cases:
-    1. Jaime wants to add Future Islands to her artists.  She clicks the
+    1. Jamie wants to add Future Islands to her artists.  She clicks the
        "My Artists" tabs on the menu bar.  She searches for Future Islands,
        and a list of search results show below.  She finds Future Islands and
        click the plus button next to their name.  She sees that Future Islands
