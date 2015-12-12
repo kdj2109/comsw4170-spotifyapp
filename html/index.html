@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="spotify_app">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../styles/home.css">
+    <script src="../scripts/angular.min.js"></script>
+    <script src="../scripts/angular-route.min.js"></script>
+    <script src="../scripts/router.js"></script>
+    <title>Spotify App</title>
+</head>
+<body>
+    <div id="header">
+        <i class="fa fa-spotify fa-lg"></i>
+        <a class="header-tab" href="#/home">Home</a>
+        <a class="header-tab" href="#/artists">My Artists</a>
+    </div>
+
+    <div ng-view></div>
+</body>
+</html>
