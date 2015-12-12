@@ -1,0 +1,29 @@
+.artist-image {
+    width: 208px;
+    height: 208px;
+    border-radius: 8px;
+}
+
+.artist-link, a.artist-link:visited {
+    color: white;
+    text-decoration: none;
+    font-size: 24px;
+    display: block;
+}
+
+p {
+    display: inline;
+}
+
+.artist-list {
+    overflow: scroll;
+    width: 500px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 15px;
+}
+
+#search-div {
+    width: 100%;
+    left: 0;
+}

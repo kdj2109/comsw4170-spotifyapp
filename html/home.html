@@ -1,9 +1,24 @@
 <div id="welcome">
     <h1 id="welcome-message">Welcome to the Spotify News App!</h1>
-    <p>Explore album reviews, blog articles, and general news on all your favorite artists.</p>
+    <p>Browse your favorite artists.</p>
 </div>
 
-<div id="search">
-    <i class="fa fa-search"></i>
-    <input id="search-bar" type="text"/>
+<div id="search-div" ng-controller="searchCtrl">
+    <div id="search">
+        <form ng-submit="search()">
+            <i class="fa fa-search"></i>
+            <input id="search-bar" type="text" ng-model="query_string"/>
+        </form>
+    </div>
+
+    <div class="artist-list" ng-repeat="artist in artist_list">
+        <img class="artist-image" src="{{artist.images[0].url}}" />
+        <a class="artist-link" href="{{artist.external_urls.spotify}}">
+            {{artist.name}}
+        </a>
+        <p>Followers: {{artist.followers.total}} |</p>
+        <p>Popularity: {{artist.popularity}}</p>
+        <i class="fa fa-plus"></i>
+    </div>
 </div>
+

@@ -1,6 +1,7 @@
-var spotify_app = angular.module('spotify_app', ['ngRoute']);
+var spotifyApp = angular.module('spotifyApp', ['ngRoute',
+                                               'searchControllers']);
 
-spotify_app.config(['$routeProvider',
+spotifyApp.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
       when('/home', {
