@@ -23,6 +23,10 @@ spotifyApp.controller('SearchController', ['$scope', '$http', function($scope, $
     artist: ""
   };
 
+  $scope.reviews = null;
+  $scope.news = null;
+  $scope.blogPosts = null;
+
   // reviews endpoint
   $scope.getReviews = function(artistName) {
 
@@ -32,9 +36,16 @@ spotifyApp.controller('SearchController', ['$scope', '$http', function($scope, $
 
     console.log(url);
 
+    if (!artistName) {
+      alert('warn user that they need to search for something');
+
+      return;
+    }
+
     $http.jsonp(url).success(function(data) { 
       console.log('success');
-      console.log(data);
+      console.log(data.response.reviews);
+      $scope.reviews = data.response.reviews;
     }).
     error(function(data) {
       console.log(data);
@@ -49,9 +60,16 @@ spotifyApp.controller('SearchController', ['$scope', '$http', function($scope, $
 
     console.log(url);
 
+    if (!artistName) {
+      alert('warn user that they need to search for something');
+
+      return;
+    }
+
     $http.jsonp(url).success(function(data) { 
       console.log('success');
       console.log(data);
+      $scope.news = data.response.news;
     }).
     error(function(data) {
       console.log(data);
@@ -61,14 +79,21 @@ spotifyApp.controller('SearchController', ['$scope', '$http', function($scope, $
 
   // blog posts endpoint
   $scope.getBlogPosts = function(artistName) {
-    var req = { 'name': artistName, 'api_key': API_KEY, 'format': 'jsonp' };
+    var req = { 'name': artistName, 'api_key': API_KEY, 'format': 'jsonp' , 'high_relevance': true};
     var url = 'http://developer.echonest.com/api/v4/artist/blogs?callback=JSON_CALLBACK&' + serialize(req);
 
     console.log(url);
 
+    if (!artistName) {
+      alert('warn user that they need to search for something');
+
+      return;
+    }
+
     $http.jsonp(url).success(function(data) { 
       console.log('success');
       console.log(data);
+      $scope.blogPosts = data.response.blogs;
     }).
     error(function(data) {
       console.log(data);

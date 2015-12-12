@@ -12,50 +12,64 @@
   </div>
 
 
-    <div layout="row" layout-padding class="bg-black" layout-align="space-between center">
-      <div>
-          <md-button>Home</md-button>
-          <md-button>My Artists</md-button>
-          <md-menu>
-              <md-button md-menu-origin ng-click="$mdOpenMenu()">Help</md-button>
-              <md-menu-content width="2">
-                  <md-menu-item>
-                      <md-button>Help</md-button>
-                  </md-menu-item>
-                  <md-menu-item>
-                      <md-button>About</md-button>
-                  </md-menu-item>
-              </md-menu-content>
-          </md-menu>
-      </div>
-      <!-- <div class="nav-buttons">
-          <md-button class="md-raised md-accent">My profile</md-button>
-          <md-button class="md-raised md-warn">Log Out</md-button>
-      </div> -->
+    <div layout="row" layout-padding class="bg-black" layout-align="space-between center" flex="" ng-cloak="">
+      <md-button>Home</md-button>
+      <md-button>My Artists</md-button>
+      <md-menu>
+          <md-button md-menu-origin ng-click="$mdOpenMenu()">Help</md-button>
+          <md-menu-content width="2">
+              <md-menu-item>
+                  <md-button>Help</md-button>
+              </md-menu-item>
+              <md-menu-item>
+                  <md-button>About</md-button>
+              </md-menu-item>
+          </md-menu-content>
+      </md-menu>
     </div>
 
-
-
-    <div layout="column" class="search" flex-md>
+    <div layout="column" class="search">
 
       <md-content md-theme="default" layout-padding="" layout="row" layout-sm="column">
         <md-input-container>
           <label>Search by Artist</label>
           <input ng-model="form.artist">
-
-          <md-button class="md-raised" ng-click='getReviews(form.artist)'> Go </md-button>
         </md-input-container>
-        <!-- <md-input-container>
-          <label>Email</label>
-          <input ng-model="user.email" type="email">
-        </md-input-container> -->
       </md-content>
 
-      <md-button class="md-raised" ng-click='getBlogPosts(form.artist)'> blog posts </md-button>
-      <md-button class="md-raised" ng-click='getNews(form.artist)'> news </md-button>
+
+      <div class="artist-reviews" layout="row" layout-md="column">
+        <div ng-repeat="review in reviews">
+          <p>Date reviewed: {{review.date_reviewed}}</p>
+          <p>Review Name: {{review.name}}</p>
+          <p>Summary: {{review.summary}}</p>
+          <p>External Link: {{review.url}}</p>
+        </div>
+      </div>
+
+      <div class="blog-posts">
+        <div ng-repeat="post in blogPosts">
+          <p>Date Posted: {{post.date_posted}}</p>
+          <p>Blog Post Name: {{post.name}}</p>
+          <p>Summary: {{post.summary}}</p>
+          <p>External Link: {{post.url}}</p>
+        </div>
+      </div>
+
+      <div class="artist-news">
+        <div ng-repeat="news_item in news">
+          <p>Date Posted: {{news_item.date_posted}}</p>
+          <p>News Article Title: {{news_item.name}}</p>
+          <p>Summary: {{news_item.summary}}</p>
+          <p>External Link: {{news_item.url}}</p>
+        </div>
+      </div>
+
+      <md-button class="md-raised" ng-click='getReviews(form.artist)'> See Artist Reviews </md-button>
+      <md-button class="md-raised" ng-click='getBlogPosts(form.artist)'> Find Blog posts </md-button>
+      <md-button class="md-raised" ng-click='getNews(form.artist)'> Read Artist News </md-button>
 
       {{form.artist}}
-
     </div>  
 
 </div>
