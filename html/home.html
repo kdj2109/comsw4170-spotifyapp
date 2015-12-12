@@ -1,0 +1,105 @@
+
+<div>
+
+  <div id="welcome">
+    <h1 id="welcome-message">Welcome to the Spotify News App!</h1>
+    <p>Explore album reviews, blog articles, and general news on all your favorite artists.</p>
+  </div>
+
+  <div id="search">
+      <i class="fa fa-search"></i>
+      <input id="search-bar" type="text"/>
+  </div>
+
+    <!-- <div layout="row" layout-padding class="bg-black" layout-align="space-between center" flex="" ng-cloak="">
+      <md-button>Home</md-button>
+      <md-button>My Artists</md-button>
+      <md-menu>
+          <md-button md-menu-origin ng-click="$mdOpenMenu()">Help</md-button>
+          <md-menu-content width="2">
+              <md-menu-item>
+                  <md-button>Help</md-button>
+              </md-menu-item>
+              <md-menu-item>
+                  <md-button>About</md-button>
+              </md-menu-item>
+          </md-menu-content>
+      </md-menu>
+    </div> -->
+
+    <div layout="column" class="search">      
+      <md-content md-theme="default" layout-padding="" layout="row" layout-sm="column">
+        <md-input-container>
+          <label>Search by Artist</label>
+          <input ng-model="form.artist">
+        </md-input-container>
+      </md-content>
+
+      <div class="artist-reviews">
+        <md-card flex-gt-sm="90" flex-gt-md="80">
+          <md-card-content>
+            <md-list>
+              <md-item-content>
+                <div ng-repeat="review in reviews">
+                  <p>Date reviewed: {{review.date_reviewed || "No Date Found" }}</p>
+                  <p>Review Name: <a target="_blank" href="{{review.url}}">{{review.name}}</a></p>
+                  <p>Summary: <blockquote>{{review.summary}}</blockquote></p>
+                  <md-divider hide-sm ng-if="!$last"></md-divider>
+                  <md-divider hide-gt-sm ng-if="!$last"></md-divider>
+                </div>
+              <md-item-content>
+            <md-list>
+
+          </md-card-content>
+        </md-card>
+      </div>
+
+      <div class="blog-posts">
+        <md-card flex-gt-sm="90" flex-gt-md="80">
+          <md-card-content>
+            <md-list>
+              <md-item-content>
+                <div ng-repeat="post in blogPosts">
+                  <p>Date Posted: {{post.date_posted}}</p>
+                  <p>Blog Post Name: <a target="_blank" href="{{post.url}}">{{post.name}}</a></p>
+                  <p>Summary: <blockquote>{{post.summary}}</blockquote></p>
+                  <md-divider hide-sm ng-if="!$last"></md-divider>
+                  <md-divider hide-gt-sm ng-if="!$last"></md-divider>
+                </div>
+                 <md-item-content>
+            <md-list>
+
+          </md-card-content>
+        </md-card>
+      </div>
+
+      <div class="artist-news">
+        <div ng-repeat="news_item in news">
+          <md-card flex-gt-sm="90" flex-gt-md="80">
+          <md-card-content>
+            <md-list>
+              <md-item-content>
+                <p>Date Posted: {{news_item.date_posted}}</p>
+                <p>News Article Title:  <a target="_blank" href="{{news_item.url}}">{{news_item.name}}</a></p>
+                <p>Summary: <blockquote>{{news_item.summary}}</blockquote></p>
+                <md-divider hide-sm ng-if="!$last"></md-divider>
+                <md-divider hide-gt-sm ng-if="!$last"></md-divider>
+                <md-item-content>
+            <md-list>
+
+          </md-card-content>
+        </md-card>
+        </div>
+      </div>
+
+      <md-button class="md-raised" ng-click='getReviews(form.artist)'> See Artist Reviews </md-button>
+      <md-button class="md-raised" ng-click='getBlogPosts(form.artist)'> Find Blog posts </md-button>
+      <md-button class="md-raised" ng-click='getNews(form.artist)'> Read Artist News </md-button>
+
+
+      <md-button class="md-raised" ng-click='getNewReleases()'> New Releases </md-button>
+
+      {{form.artist}}
+    </div>  
+
+</div>
