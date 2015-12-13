@@ -47,6 +47,12 @@ spotifyControllers.controller('searchBarCtrl',
     }
 );
 
+// NEWSFEED CONTROLLER
+
+spotifyControllers.controller('NewsFeedController', ['$scope', '$http', '$mdDialog', 'localStorageService'], function($scope, $http, $mdDialog, localStorageService) {
+
+});
+
 // SEARCH CONTROLLER
 spotifyControllers.controller('SearchController', ['$scope', '$http', '$mdDialog', function($scope, $http, $mdDialog) {
 
@@ -61,21 +67,16 @@ spotifyControllers.controller('SearchController', ['$scope', '$http', '$mdDialog
   $scope.blogPosts = null;
 
   function showAlert() {
-      alert = $mdDialog.alert()
-        .title('Warning!')
-        .content('Please type in an artist\'s name!')
-        .ok('Close');
+    alert = $mdDialog.alert()
+      .title('Warning!')
+      .content('Please type in an artist\'s name!')
+      .ok('Close');
 
-      $mdDialog
-          .show( alert )
-          .finally(function() {
-            alert = undefined;
-          });
-    }
-
-
-  $scope.getNewReleases = function() {
-    
+    $mdDialog
+        .show( alert )
+        .finally(function() {
+          alert = undefined;
+        });
   }
 
   // reviews endpoint
