@@ -8,7 +8,7 @@ spotifyApp.controller('ArtistController', function($scope, $http, $sce) {
   //initial variables
   $scope.songs = [];
   $scope.trackset = "";
-  $scope.myArtists = ["Kendrick Lamar", "Fetty Wap","Beyonce", "Nicki Minaj", "Justin Bieber"];
+  $scope.myArtists = ["U2", "Nick Jonas", "The Weeknd", "Drake", "Kendrick Lamar", "Fetty Wap","Beyonce", "Nicki Minaj", "Justin Bieber"];
   $scope.newsfeed = false;
 
 
@@ -48,8 +48,8 @@ spotifyApp.controller('ArtistController', function($scope, $http, $sce) {
               var id = $scope.songs[i].id + ",";
               $scope.trackset = $scope.trackset.concat(id);
             } 
-            var frame="<iframe src='https://embed.spotify.com/?uri=spotify:trackset:title:"+
-            $scope.trackset+"' frameborder='0' width='320' height='315' style='display:inline'></iframe>";
+            var frame="<iframe src='https://embed.spotify.com/follow/1/?uri=spotify:artist:"+artistID+
+            "&size=basic&theme=light' width='200' height='25' scrolling='no' frameborder='0' style='border:none; overflow:hidden;'' allowtransparency='true'></iframe>"
             $scope.iframe = $sce.trustAsHtml(frame);
 
 
