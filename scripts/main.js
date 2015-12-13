@@ -6,7 +6,7 @@ var SPOTIFY_CLIENT_ID = 'd1a98ebf9a8647e08fa127a4e2636602';
 var SPOTIFY_SECRET_KEY = '8f99388f6c8f4470a2bd7104ac86a168';
 
 
-// // takes an obj literal and converts it to a query string
+// takes an obj literal and converts it to a query string
 var serialize = function(obj) {
   var str = [];
   for(var p in obj)
