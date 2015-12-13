@@ -16,6 +16,7 @@ var serialize = function(obj) {
   return str.join("&");
 }
 
+// SEARCH BAR CONTROLLER
 spotifyControllers.controller('searchBarCtrl',
     function($scope, $http) {
         // To access Spotify API
@@ -46,6 +47,7 @@ spotifyControllers.controller('searchBarCtrl',
     }
 );
 
+// SEARCH CONTROLLER
 spotifyControllers.controller('SearchController', ['$scope', '$http', '$mdDialog', function($scope, $http, $mdDialog) {
 
   $scope.myArtists = [];
