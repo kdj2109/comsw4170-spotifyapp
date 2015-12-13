@@ -10,6 +10,7 @@ spotifyApp.controller('ArtistController', function($scope, $http, $sce) {
   $scope.trackset = "";
   $scope.myArtists = ["U2", "Nick Jonas", "The Weeknd", "Drake", "Kendrick Lamar", "Fetty Wap","Beyonce", "Nicki Minaj", "Justin Bieber"];
   $scope.newsfeed = false;
+  $scope.editing=false;
 
 
   $scope.form = {
@@ -103,6 +104,22 @@ var formatText = function(text){
 
   return text;
 }
+
+
+$scope.edit = function(){
+  if($scope.editing==false){
+    $scope.editing=true;
+  }else{
+    $scope.editing=false;
+  }
+}
+
+
+$scope.deleteArtist = function(i){
+  $scope.myArtists.splice(i,1);
+
+}
+
 
 }).config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default')
