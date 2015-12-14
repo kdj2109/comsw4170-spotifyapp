@@ -4,12 +4,23 @@
       <!--List of My Artists-->
       <div flex="20"> 
         <md-list>
-          <md-list-item ng-click="switchArtist('newsfeed')">
-            Newsfeed
-          </md-list-item>
-          <md-list-item ng-repeat="artist in myArtists" ng-click="switchArtist(artist);">
-              <div class="md-list-item-text">
-              {{artist}}
+        <md-list-item style="background-color:#d3d3d3;" layout="row" layout-align="center">
+            <div flex="80" layout="row" layout-align="center"><h3>My Artists</h3></div>
+            <div flex="20" layout="row" layout-align="end">
+               <img ng-hide=editing src="https://cdn3.iconfinder.com/data/icons/glypho-free/64/pen-checkbox-128.png" style="height:25px;width:25px;" ng-click="edit()">
+               <img ng-show=editing src="https://cdn4.iconfinder.com/data/icons/basic-ui-elements/700/011_yes-128.png" style="height:20px;width:20px;" ng-click="edit()">
+            </div>
+        </md-list-item>
+
+
+          <md-list-item ng-repeat="artist in myArtists" ng-click="switchArtist(artist);" layout="row">
+              <div flex="80" layout="row">
+                <div class="md-list-item-text">
+                  {{artist}}
+                </div>
+              </div>
+             <div flex="20" layout="row" layout-align="end">
+               <img src="http://www.clker.com/cliparts/a/x/q/L/G/9/delete-icon-md.png" style="height:15px;width:15px;opacity:0.8;" ng-click="deleteArtist($index)" ng-show=editing>
             </div>
           </md-list-item>
         </md-list>
@@ -18,7 +29,7 @@
     <!--Artist Feed-->
       <div flex="80" layout="column" layout-align="center center" >
         <div flex layout="row" layout-align="center center" ng-show=newsfeed>
-          <a href="{{}}" target="_blank"> <img src='{{artistPicture}}' style='width:200px; height:200px; display:inline;' ng-cloak></img></a>
+          <a href="{{}}" target="_blank"> <img src='{{artistPicture}}' class="artist-image" ng-cloak></img></a>
           <div ><h1 class="md-display-4" ng-cloak>{{artistName}}</h1></div>
         </div>
 
@@ -28,22 +39,28 @@
         </div>
 
         <br>
-    </div>
       
 
-    </div> 
-
     <div flex>
-      <div ng-repeat="news in artistNews">
-        <a href="{{news.url}}" target="_blank" style="text-decoration:none; color:black;">
-          <md-card style="height:200px;overflow:hidden;">
-            <md-card-title>
-              <span class="md-headline">{{news.name}}</span>
-              <p class="md-subhead">{{news.date_found}}</p>
-            </md-card-title>
-            <md-card-title-media><span class="md-subhead">{{news.summary}}</span></md-card-title-media>
-          </md-card>
-         </a>
+      <div class="newsfeed">
+            <div ng-repeat="news in artistNews">
+                <md-card flex-gt-sm="90" flex-gt-md="80">
+                    <md-card-content>
+                        <md-list>
+                            <md-item-content>
+                                <p>Date Posted: {{news.date_found}}</p>
+                                <p>Article Name: <a target="_blank" href="{{news.url}}">{{news.name}}</a></p>
+                                <p>Summary: <blockquote>{{news.summary}}</blockquote></p>
+                                <md-divider hide-sm ng-if="!$last"></md-divider>
+                                <md-divider hide-gt-sm ng-if="!$last"></md-divider>
+                            </md-item-content>
+                        </md-list>
+                    </md-card-content>
+                </md-card>
+            </div>
+        </div>
+
       </div>
+    </div>
     </div>
 </div>

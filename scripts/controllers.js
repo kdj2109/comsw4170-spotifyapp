@@ -18,12 +18,12 @@ var serialize = function(obj) {
 
 // SEARCH BAR CONTROLLER
 spotifyControllers.controller('searchBarCtrl',
-    function($scope, $http) {
-        // To access Spotify API
-        var API_KEY = 'NGB9ACOOVZV9AOTEZ';
-
+    function($scope, $http, $timeout) {
         // Query string for the search bar in home.html
         $scope.query_string = '';
+
+        // Show artist list dropdown under search
+        $scope.show_artist_list = false;
 
         // List of artists
         $scope.artist_list = []
@@ -33,16 +33,30 @@ spotifyControllers.controller('searchBarCtrl',
 
         // Search function
         $scope.search = function() {
+            if ($scope.query_string == '') {
+                $scope.artist_list = [];
+                $scope.show_artist_list = false;
+                return
+            }
+
             url = base_url + $scope.query_string
+
             $http.get(url).then(
                 function(data) {
                     $scope.artist_list = data.data.artists.items;
-                    console.log($scope.artist_list)
+                    check_data(data);
                 }, function(err, data) {
                     console.log(err, data);
                 }
             )
+        }
 
+        var check_data = function(data) {
+            if (data.data.artists.items.length > 0) {
+                $scope.show_artist_list = true;
+            } else {
+                $scope.show_artist_list = false;
+            }
         }
     }
 );
