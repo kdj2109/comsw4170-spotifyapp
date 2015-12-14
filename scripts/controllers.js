@@ -1,5 +1,20 @@
 var spotifyControllers = angular.module('spotifyControllers', []);
 
+spotifyControllers.factory('userArtistsShared', function () {
+
+    var artists = [];
+
+    return {
+        get: function () {
+            return artists;
+        },
+        set: function (_artists) {
+            artists = _artists;
+        }
+    };
+});
+
+
 // HIDE THIS SOMEHOW
 var API_KEY = 'NGB9ACOOVZV9AOTEZ ';
 var SPOTIFY_CLIENT_ID = 'd1a98ebf9a8647e08fa127a4e2636602';
@@ -16,9 +31,9 @@ var serialize = function(obj) {
   return str.join("&");
 }
 
-// SEARCH BAR CONTROLLER
+/* SEARCH BAR CONTROLLER */
 spotifyControllers.controller('searchBarCtrl',
-    function($scope, $http, $timeout, $mdDialog, localStorageService) {
+    function($scope, $http, $timeout, $mdDialog, localStorageService, userArtistsShared) {
         // Query string for the search bar in home.html
         $scope.query_string = '';
 
@@ -28,13 +43,10 @@ spotifyControllers.controller('searchBarCtrl',
         // List of artists
         $scope.artist_list = [];
 
-
-        // the artist the user wants to track
-        $scope.artistToTrack = '';
-
-
         // list of artists user is already tracking
-        $scope.userArtists = localStorageService.get('userArtists') || [];
+        // $scope.userArtists = localStorageService.get('userArtists') || [];
+        userArtistsShared.set(localStorageService.get('userArtists') || []);
+        $scope.userArtists = userArtistsShared.get() 
 
         // Base url to query for artists
         var base_url = 'https://api.spotify.com/v1/search?type=artist&q='
@@ -78,8 +90,8 @@ spotifyControllers.controller('searchBarCtrl',
           }
 
           $scope.userArtists.push(artistName);
+          userArtistsShared.set($scope.userArtists);
           localStorageService.set('userArtists', $scope.userArtists);
-
 
           showSuccess(artistName);
 
@@ -118,11 +130,9 @@ spotifyControllers.controller('searchBarCtrl',
 // my artists page
 spotifyControllers.controller('myArtistsController', function($scope, $http, $mdDialog, localStorageService) { 
 
-
 });
 
-// NEWSFEED CONTROLLER
-
+/* NEWSFEED CONTROLLER */
 spotifyControllers.controller('NewsFeedController', function($scope, $http, $mdDialog, localStorageService) {
   console.log('hello');
 
@@ -130,7 +140,7 @@ spotifyControllers.controller('NewsFeedController', function($scope, $http, $mdD
 
 });
 
-// SEARCH CONTROLLER
+/* SEARCH CONTROLLER */
 spotifyControllers.controller('SearchController', function($scope, $http, $mdDialog) {
 
   $scope.myArtists = [];
@@ -231,12 +241,24 @@ spotifyControllers.controller('SearchController', function($scope, $http, $mdDia
 
 });
 
-spotifyControllers.controller('ArtistController', function($scope, $http, $sce, localStorageService) {
+
+/* ARTIST CONTROLLER */
+spotifyControllers.controller('ArtistController', function($scope, $http, $sce, localStorageService, userArtistsShared) {
 
   //initial variables
   $scope.songs = [];
   $scope.trackset = "";
-  $scope.myArtists = localStorageService.get('userArtists') || ["U2", "Nick Jonas", "The Weeknd", "Drake", "Kendrick Lamar", "Fetty Wap","Beyonce", "Nicki Minaj", "Justin Bieber"];
+
+
+  // $scope.myArtists = localStorageService.get('userArtists') || ["U2", "Nick Jonas", "The Weeknd", "Drake", "Kendrick Lamar", "Fetty Wap","Beyonce", "Nicki Minaj", "Justin Bieber"];
+  
+  $scope.myArtists = userArtistsShared.get();
+
+  // if (!localStorageService.get('userArtists')) {
+  //   $scope.myArtists = ["U2", "Nick Jonas", "The Weeknd", "Drake", "Kendrick Lamar", "Fetty Wap","Beyonce", "Nicki Minaj", "Justin Bieber"];
+  //   localStorageService.set('userArtists', $scope.myArtists);
+  // }
+
   $scope.newsfeed = false;
   $scope.editing=false;
 
@@ -345,6 +367,8 @@ $scope.edit = function(){
 
 $scope.deleteArtist = function(i){
   $scope.myArtists.splice(i,1);
+  localStorageService.set('userArtists', $scope.myArtists);
+  userArtistsShared.set($scope.myArtists);
 
 }
 
