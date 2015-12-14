@@ -34,11 +34,23 @@
 
     <div class="spotify-app">
         <div layout="row" layout-padding class="" layout-align="space-between center" layout-sm>
+            <i class="fa fa-spotify fa-lg"></i>
             <div class="nav-buttons">
-                <i class="fa fa-spotify fa-lg"></i>
                 <md-button class="md-raised"><a class="header-tab" href="#/home">Home</a></md-button>
                 <md-button class="md-raised"><a class="header-tab" href="#/artists">My Artists</a></md-button>
                 <md-button class="md-raised"><a class="header-tab" href="#/help">Help</a></md-button>
+            </div>
+
+            <div class="nav-buttons-mobile" ng-controller="navController">
+                {{ menuOpen }}
+                <i class="fa fa-bars fa-lg" ng-click="toggle()"></i>
+                <div ng-show="menuOpen">
+                    <ul class="navMenu">
+                        <li><a class="header-tab" href="#/home">Home</a></li>
+                        <li><a class="header-tab" href="#/artists">My Artists</a></li>
+                        <li><a class="header-tab" href="#/help">Help</a></li>
+                    </ul>
+                </div>
             </div>
 
             <div id="search-div" ng-controller="searchBarCtrl">
