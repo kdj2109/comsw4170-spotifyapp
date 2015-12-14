@@ -1,4 +1,4 @@
-var spotify_app = angular.module('spotify_app', ['ngRoute', 'spotifyControllers', 'ngMaterial', 'artistPage', 'LocalStorageModule']);
+var spotify_app = angular.module('spotify_app', ['ngRoute', 'spotifyControllers', 'ngMaterial', 'LocalStorageModule']);
 
 spotify_app
 .config(function (localStorageServiceProvider) {
@@ -12,8 +12,10 @@ spotify_app
       when('/home', {
         templateUrl: 'home.html'
       }).
+      when('/newsfeed', {
+        templateUrl: 'newsfeed.html'
+      }).
       when('/artists', {
-        templateUrl: 'artists.html',
-        controller: 'ArtistController'
+        templateUrl: 'artists.html'
       })
 })

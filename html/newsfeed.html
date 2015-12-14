@@ -1,5 +1,16 @@
 
 
-<div ng-controller="FeedController">
-	
+<div ng-controller="NewsFeedController">
+	<h3>Latest News</h3>
+</div>
+
+<div ng-controller="myArtistsController">
+	<md-content md-theme="default" layout-padding="" layout="row" layout-sm="column">
+        <md-input-container>
+            <label>Track An Artist</label>
+            <input ng-model="artistToTrack">
+        </md-input-container>
+    </md-content>
+
+    {{ userArtists }}
 </div>
