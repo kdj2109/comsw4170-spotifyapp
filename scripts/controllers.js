@@ -31,6 +31,20 @@ var serialize = function(obj) {
   return str.join("&");
 }
 
+spotifyControllers.controller('navController', function($scope) {
+  $scope.menuOpen = false;
+
+  $scope.toggle = function() {
+    if ($scope.menuOpen) {
+      $scope.menuOpen = false;
+    } else {
+      $scope.menuOpen = true;
+    }
+
+    console.log($scope.menuOpen);
+  }
+});
+
 /* SEARCH BAR CONTROLLER */
 spotifyControllers.controller('searchBarCtrl',
     function($scope, $http, $timeout, $mdDialog, localStorageService, userArtistsShared) {

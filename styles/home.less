@@ -1,5 +1,35 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:300);
 
+.nav-buttons-mobile {
+  display: none;
+}
+
+@media (max-width: 689px) {
+  .nav-buttons {
+    display: none;
+  }
+
+  .nav-buttons-mobile {
+    display: block;
+  }
+
+  .navMenu {
+    z-index: 1000;
+    position: absolute;
+    background: white;
+    width: 140px;
+    
+    li {
+      list-style-type: none;
+      padding: .5em;
+      border: 1px solid #eef;
+      &:hover {
+        
+      }
+    }
+  }
+}
+
 body {
   color: #00d95a;
 	font-weight: 300;
@@ -11,9 +41,9 @@ body {
 }
 
 #header {
-    width: 100%;
-    position: absolute;
-    background-color: #191414;
+  width: 100%;
+  position: absolute;
+  background-color: #191414;
 	left: 0;
 	top: -30px;
 	padding: 15px;
@@ -21,6 +51,13 @@ body {
 
 #logo {
     color: white;
+}
+
+.nav-buttons {
+  margin-left: -7em;
+  @media (max-width: 835px) {
+    margin-left: 0;
+  }
 }
 
 .header-tab, a.header-tab:visited {
@@ -43,9 +80,6 @@ body {
 }
 
 #search {
-    width: 100%;
-    left: 0;
-    text-align: center;
 }
 
 #search-bar {
@@ -60,8 +94,14 @@ body {
 .search {}
 
 
+/* ARTISTS */
 .artistFeed img {
   max-width: 400px;
+}
+
+.artistsPage {
+  max-width: 765px;
+  margin: 0 auto;
 }
 
 
@@ -101,3 +141,28 @@ blockquote p {
     float: right;
     margin-right: 2px;
 }
+
+.main-feed {
+  /*max-width: 785px;*/
+  margin: 0 auto;
+
+  @media (max-width: 689px) {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 460px) {
+    max-width: 300px;
+    margin: 0 auto;
+  }
+}
+
+#search {
+  input {
+    display: inline-block;
+  }
+  @media (max-width: 715px) {
+    margin: 0 auto;
+  }
+}
+
