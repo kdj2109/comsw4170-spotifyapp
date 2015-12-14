@@ -319,10 +319,6 @@ spotifyControllers.controller('ArtistController', function($scope, $http, $sce, 
               }
             })
 
-
-
-
-
         }).error(function(data){
           console.log('tracks not found');
         })
