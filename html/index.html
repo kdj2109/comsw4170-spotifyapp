@@ -2,6 +2,7 @@
 <html lang="en" ng-app="spotify_app">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../styles/home.css">
     <link rel="stylesheet" href="../styles/search.css">
@@ -32,7 +33,7 @@
 <body>
 
     <div class="spotify-app">
-        <div layout="row" layout-padding class="" layout-align="space-between center">
+        <div layout="row" layout-padding class="" layout-align="space-between center" layout-sm>
             <div class="nav-buttons">
                 <i class="fa fa-spotify fa-lg"></i>
                 <md-button class="md-raised"><a class="header-tab" href="#/home">Home</a></md-button>
@@ -42,7 +43,8 @@
             </div>
 
             <div id="search-div" ng-controller="searchBarCtrl">
-                <div id="search">
+                {{userArtists}}
+                <div id="search" class="">
                     <form ng-submit="search()">
                         <i class="fa fa-search"></i>
                         <input ng-keyup="search()" ng-keydown="search()" name="fname" placeholder="Browse your favorite artists" id="search-bar" type="text" ng-model="query_string"/>
@@ -52,43 +54,11 @@
                 <div id="search-results" ng-show="show_artist_list">
                     <div class="artist" ng-repeat="artist in artist_list">
                         {{artist.name}}
-                        <i class="fa fa-plus-circle fa-lg green float-right add-button"></i>
+                        <i class="fa fa-plus-circle fa-lg green float-right add-button" ng-click="trackArtist(artist.name)"></i>
                     </div>
                 </div>
             </div>
         </div>
-    <!-- <div id="header">
-        <i id="logo" class="fa fa-spotify fa-lg"></i>
-        <a class="header-tab" href="#/home">Home</a>
-        <a class="header-tab" href="#/artists">My Artists</a>
-    </div> -->
-
-    <!-- <div layout="row" layout-padding class="" layout-align="space-between center">
-        <div flex="75" class="nav-buttons">
-            <i class="fa fa-spotify fa-lg"></i>
-            <md-button class="md-flat">Spotify News Wiki</md-button>
-            <md-button class="md-raised"><a class="header-tab" href="#/home">Home</a></md-button>
-            <md-button class="md-raised"><a class="header-tab" href="#/artists">My Artists</a></md-button>
-        </div>
-
-        <div id="search-div" ng-controller="searchBarCtrl">
-            <div id="search">
-                <form ng-submit="search()">
-                    <i class="fa fa-search"></i>
-                    <input ng-keyup="search()" ng-keydown="search()" name="fname" placeholder="Browse your favorite artists" id="search-bar" type="text" ng-model="query_string"/>
-                </form>
-            </div>
-
-            <div id="search-results" ng-show="show_artist_list">
-                <div class="artist" ng-repeat="artist in artist_list">
-                    {{artist.name}}
-                    <i class="fa fa-plus-circle fa-lg green float-right add-button"></i>
-                </div>
-            </div>
-        </div>
-
-    </div>
->>>>>>> origin -->
 
 
         <div ng-view></div>

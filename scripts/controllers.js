@@ -18,7 +18,7 @@ var serialize = function(obj) {
 
 // SEARCH BAR CONTROLLER
 spotifyControllers.controller('searchBarCtrl',
-    function($scope, $http, $timeout) {
+    function($scope, $http, $timeout, $mdDialog, localStorageService) {
         // Query string for the search bar in home.html
         $scope.query_string = '';
 
@@ -26,7 +26,15 @@ spotifyControllers.controller('searchBarCtrl',
         $scope.show_artist_list = false;
 
         // List of artists
-        $scope.artist_list = []
+        $scope.artist_list = [];
+
+
+        // the artist the user wants to track
+        $scope.artistToTrack = '';
+
+
+        // list of artists user is already tracking
+        $scope.userArtists = localStorageService.get('userArtists') || [];
 
         // Base url to query for artists
         var base_url = 'https://api.spotify.com/v1/search?type=artist&q='
@@ -58,61 +66,68 @@ spotifyControllers.controller('searchBarCtrl',
                 $scope.show_artist_list = false;
             }
         }
+
+        $scope.trackArtist = function(artistName) {
+
+          console.log(artistName);
+
+          // already in the list of artists!
+          if ($scope.userArtists.indexOf(artistName) >= 0) {
+            showAlert(artistName);
+            return;
+          }
+
+          $scope.userArtists.push(artistName);
+          localStorageService.set('userArtists', $scope.userArtists);
+
+
+          showSuccess(artistName);
+
+        };
+
+
+        function showSuccess(artistName) {
+          alert = $mdDialog.alert()
+            .title('Success')
+            .content('You are now tracking ' + artistName + '!')
+            .ok('Close');
+
+          $mdDialog
+              .show( alert )
+              .finally(function() {
+                alert = undefined;
+              });
+        }
+
+        function showAlert(artistName) {
+          alert = $mdDialog.alert()
+            .title('Error')
+            .content('You are already tracking' + artistName + ' this artist.')
+            .ok('Close');
+
+          $mdDialog
+              .show( alert )
+              .finally(function() {
+                alert = undefined;
+              });
+        }
+
     }
 );
 
 // my artists page
 spotifyControllers.controller('myArtistsController', function($scope, $http, $mdDialog, localStorageService) { 
-  
-  $scope.artistToTrack = '';
-  $scope.userArtists = [];
 
-
-  $scope.trackArtist = function(artistName) {
-
-    // already in the list of artists!
-    if ($scope.userArtists.indexOf(artistName) >= 0) {
-      showAlert();
-      return;
-    }
-
-    $scope.userArtists.push(artistName);
-
-  };
-
-
-  function showSuccess() {
-    alert = $mdDialog.success()
-      .title('Success')
-      .content('You are now tracking this artist!')
-      .ok('Close');
-
-    $mdDialog
-        .show( alert )
-        .finally(function() {
-          alert = undefined;
-        });
-  }
-
-  function showAlert() {
-    alert = $mdDialog.alert()
-      .title('Error')
-      .content('You are already tracking this artist.')
-      .ok('Close');
-
-    $mdDialog
-        .show( alert )
-        .finally(function() {
-          alert = undefined;
-        });
-  }
 
 });
 
 // NEWSFEED CONTROLLER
 
 spotifyControllers.controller('NewsFeedController', function($scope, $http, $mdDialog, localStorageService) {
-  console.log('hello')
+  console.log('hello');
+
+
+
 });
 
 // SEARCH CONTROLLER
@@ -216,13 +231,15 @@ spotifyControllers.controller('SearchController', function($scope, $http, $mdDia
 
 });
 
-spotifyControllers.controller('ArtistController', function($scope, $http, $sce) {
+spotifyControllers.controller('ArtistController', function($scope, $http, $sce, localStorageService) {
 
   //initial variables
   $scope.songs = [];
   $scope.trackset = "";
-  $scope.myArtists = ["Kendrick Lamar", "Fetty Wap","Beyonce", "Nicki Minaj", "Justin Bieber"];
+  $scope.myArtists = localStorageService.get('userArtists') || ["U2", "Nick Jonas", "The Weeknd", "Drake", "Kendrick Lamar", "Fetty Wap","Beyonce", "Nicki Minaj", "Justin Bieber"];
   $scope.newsfeed = false;
+  $scope.editing=false;
+
 
   $scope.form = {
     artist: ""
@@ -260,9 +277,10 @@ spotifyControllers.controller('ArtistController', function($scope, $http, $sce) 
               var id = $scope.songs[i].id + ",";
               $scope.trackset = $scope.trackset.concat(id);
             } 
-            var frame="<iframe src='https://embed.spotify.com/?uri=spotify:trackset:title:"+
-            $scope.trackset+"' frameborder='0' width='320' height='315' style='display:inline'></iframe>";
+            var frame="<iframe src='https://embed.spotify.com/follow/1/?uri=spotify:artist:"+artistID+
+            "&size=basic&theme=light' width='200' height='25' scrolling='no' frameborder='0' style='border:none; overflow:hidden;'' allowtransparency='true'></iframe>"
             $scope.iframe = $sce.trustAsHtml(frame);
+
 
 
             //get artists biographies news from echo
@@ -278,6 +296,10 @@ spotifyControllers.controller('ArtistController', function($scope, $http, $sce) 
                 
               }
             })
+
+
+
+
 
         }).error(function(data){
           console.log('tracks not found');
@@ -310,5 +332,21 @@ var formatText = function(text){
 
   return text;
 }
+
+
+$scope.edit = function(){
+  if($scope.editing==false){
+    $scope.editing=true;
+  }else{
+    $scope.editing=false;
+  }
+}
+
+
+$scope.deleteArtist = function(i){
+  $scope.myArtists.splice(i,1);
+
+}
+
 
 });

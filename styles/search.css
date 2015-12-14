@@ -2,7 +2,7 @@
     overflow: scroll;
     position: absolute;
     max-height: 128px;
-    width: 250px;
+    width:264px;
     z-index: 2;
     margin-left: 20px;
     border-right: 1px solid #999;
@@ -24,4 +24,8 @@
 .artist {
     border-bottom: 1px solid #999;
     padding: 10px;
+}
+
+#search input {
+    padding: .5em;
 }
