@@ -6,6 +6,11 @@ body {
 	font-weight: 300;
 }
 
+.spotify-app {
+    max-width: 860px;
+    margin: 0 auto;
+}
+
 #header {
     width: 100%;
     position: absolute;
@@ -53,10 +58,7 @@ body {
     color: #999;
 }
 
-.search {
-    max-width: 860px;
-    margin: 0 auto;
-}
+.search {}
 
 
 .bg-black {

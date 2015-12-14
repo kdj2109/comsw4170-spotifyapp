@@ -1,25 +1,16 @@
 <div>
-    <!--<div id="welcome">
+    <!-- <div id="welcome">
         <h1 id="welcome-message">Welcome to the Spotify News Wiki!</h1>
         <p>Browse your favorite artists.</p>
-    </div>-->
-
-    <!-- <div layout="row" layout-padding class="bg-black" layout-align="space-between center" flex="" ng-cloak="">
-      <md-button>Home</md-button>
-      <md-button>My Artists</md-button>
-      <md-menu>
-          <md-button md-menu-origin ng-click="$mdOpenMenu()">Help</md-button>
-          <md-menu-content width="2">
-              <md-menu-item>
-                  <md-button>Help</md-button>
-              </md-menu-item>
-              <md-menu-item>
-                  <md-button>About</md-button>
-              </md-menu-item>
-          </md-menu-content>
-      </md-menu>
     </div> -->
-    <div layout="column" class="search" ng-controller="SearchController">
+
+
+    <div ng-controller="NewsFeedController">
+        <h1>Latest News</h1>
+    </div>
+
+
+   <!--  <div layout="column" class="search" ng-controller="SearchController">
         <md-content md-theme="default" layout-padding="" layout="row" layout-sm="column">
             <md-input-container>
                 <label>Search by Artist</label>
@@ -84,8 +75,6 @@
         <md-button class="md-raised" ng-click='getReviews(form.artist)'> See Artist Reviews </md-button>
         <md-button class="md-raised" ng-click='getBlogPosts(form.artist)'> Find Blog posts </md-button>
         <md-button class="md-raised" ng-click='getNews(form.artist)'> Read Artist News </md-button>
-        <md-button class="md-raised" ng-click='getNewReleases()'> New Releases </md-button>
-        {{form.artist}}
     </div>
-
+ -->
 </div>
