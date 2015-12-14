@@ -1,76 +1,66 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:300);
-
 body {
-    color: #00d95a;
-	font-family: 'Open Sans', sans-serif;
-	font-weight: 300;
+  color: #00d95a;
+  font-weight: 300;
 }
-
 .spotify-app {
-    max-width: 860px;
-    margin: 0 auto;
+  max-width: 860px;
+  margin: 0 auto;
 }
-
 #header {
-    width: 100%;
-    position: absolute;
-    background-color: #191414;
-	left: 0;
-	top: -30px;
-	padding: 15px;
+  width: 100%;
+  position: absolute;
+  background-color: #191414;
+  left: 0;
+  top: -30px;
+  padding: 15px;
 }
-
 #logo {
-    color: white;
+  color: white;
 }
-
-.header-tab, a.header-tab:visited {
-    color: #00d95a;
-    /*border-right: 1px solid #555;*/
-	text-decoration: none;
-	padding: 15px;
+.header-tab,
+a.header-tab:visited {
+  color: #00d95a;
+  /*border-right: 1px solid #555;*/
+  text-decoration: none;
+  padding: 15px;
 }
-
 #welcome {
-    width: 100%;
-    left: 0;
-    padding: 15px;
-    text-align: center;
-    margin-top: 30px;
+  width: 100%;
+  left: 0;
+  padding: 15px;
+  text-align: center;
+  margin-top: 30px;
 }
-
 #welcome-message {
-    font-weight: 300;
+  font-weight: 300;
 }
-
 #search {
-    width: 100%;
-    left: 0;
-    text-align: center;
+  width: 100%;
+  left: 0;
+  text-align: center;
 }
-
 #search-bar {
-    border-radius: 4px;
-    border: 1px solid #999;
-    width: 250px;
-    height: 20px;
-    font-weight: 300;
-    color: #999;
+  border-radius: 4px;
+  border: 1px solid #999;
+  width: 250px;
+  height: 20px;
+  font-weight: 300;
+  color: #999;
 }
-
-.search {}
-
-
+.artistFeed img {
+  max-width: 400px;
+}
 .bg-black {
-    background: #000;
+  background: #000;
 }
-
 blockquote {
   background: #f9f9f9;
   border-left: 10px solid #ccc;
   margin: 1.5em 10px;
   padding: 0.5em 10px;
-  quotes: "\201C""\201D""\2018""\2019";
+  line-height: 1.5em;
+  quotes: "\201C" "\201D" "\2018" "\2019";
 }
 blockquote:before {
   color: #ccc;
@@ -80,11 +70,18 @@ blockquote:before {
   margin-right: 0.25em;
   vertical-align: -0.4em;
 }
+blockquote:after {
+  color: #ccc;
+  content: close-quote;
+  font-size: 4em;
+  line-height: 0.1em;
+  padding-left: 0.1em;
+  vertical-align: -0.5em;
+}
 blockquote p {
   display: inline;
 }
-
 .float-right {
-    float: right;
-    margin-right: 2px;
+  float: right;
+  margin-right: 2px;
 }

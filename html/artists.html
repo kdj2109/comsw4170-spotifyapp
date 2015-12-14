@@ -2,7 +2,7 @@
 <div layout="column" ng-controller="ArtistController">
     <div flex layout="row" class="myArtists">
       <!--List of My Artists-->
-      <div flex="20"> 
+      <flex="20"> 
         <md-list>
         <md-list-item style="background-color:#d3d3d3;" layout="row" layout-align="center">
             <div flex="80" layout="row" layout-align="center"><h3>My Artists</h3></div>
@@ -27,10 +27,14 @@
       </div>
 
     <!--Artist Feed-->
-      <div flex="80" layout="column" layout-align="center center" >
+      <div flex="80" layout="column" layout-align="center center" class="artistFeed">
         <div flex layout="row" layout-align="center center" ng-show=newsfeed>
-          <a href="{{}}" target="_blank"> <img src='{{artistPicture}}' class="artist-image" ng-cloak></img></a>
-          <div ><h1 class="md-display-4" ng-cloak>{{artistName}}</h1></div>
+          <div class="artistHeader">
+            <div layout-wrap>
+              <a href="{{}}" target="_blank"><img src='{{artistPicture}}' class="artist-image" ng-cloak></img></a>
+            </div>
+            <div ng-cloak><h4>{{ artistName }}</h4></div>
+          </div>
         </div>
 
 
