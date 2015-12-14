@@ -348,5 +348,4 @@ $scope.deleteArtist = function(i){
 
 }
 
-
 });

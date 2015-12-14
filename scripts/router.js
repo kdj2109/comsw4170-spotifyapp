@@ -13,9 +13,15 @@ spotify_app
         templateUrl: 'home.html'
       }).
       when('/newsfeed', {
-        templateUrl: 'newsfeed.html'
+        templateUrl: 'home.html'
       }).
       when('/artists', {
         templateUrl: 'artists.html'
-      })
+      }).
+      when('/help', {
+        templateUrl: 'help.html'
+      }).
+      otherwise, {
+        templateUrl: 'help.html'
+      }
 })

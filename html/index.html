@@ -37,13 +37,11 @@
             <div class="nav-buttons">
                 <i class="fa fa-spotify fa-lg"></i>
                 <md-button class="md-raised"><a class="header-tab" href="#/home">Home</a></md-button>
-                <md-button class="md-raised"><a class="header-tab" href="#/newsfeed">News Feed</a></md-button>
                 <md-button class="md-raised"><a class="header-tab" href="#/artists">My Artists</a></md-button>
                 <md-button class="md-raised"><a class="header-tab" href="#/help">Help</a></md-button>
             </div>
 
             <div id="search-div" ng-controller="searchBarCtrl">
-                {{userArtists}}
                 <div id="search" class="">
                     <form ng-submit="search()">
                         <i class="fa fa-search"></i>
