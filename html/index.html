@@ -56,7 +56,7 @@
                 <div id="search" class="">
                     <form ng-submit="search()">
                         <i class="fa fa-search"></i>
-                        <input ng-keyup="search()" ng-keydown="search()" name="fname" placeholder="Browse your favorite artists" id="search-bar" type="text" ng-model="query_string"/>
+                        <input ng-mousedown="search()" ng-keyup="search()" ng-keydown="search()" name="fname" autocomplete="off" placeholder="Browse your favorite artists" id="search-bar" type="text" ng-model="query_string"/>
                     </form>
                 </div>
 
