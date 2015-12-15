@@ -561,6 +561,7 @@ $scope.deleteArtist = function(i){
 
 spotifyControllers.controller('artistController', function($scope, $http, $location, $sce, $mdDialog, localStorageService, userArtistsShared) {
     var showArtistPage = function(artistName) {
+      $scope.errormsg=false;
 
         if(artistName=="newsfeed"){
             var frame="<span></span>";
@@ -622,8 +623,7 @@ spotifyControllers.controller('artistController', function($scope, $http, $locat
                   $scope.artistNews = data.response.news;
                   if(data.response.news[0]!=undefined){
                       document.getElementById("newsfeed").style.visibility="visible";
-                      document.getElementById("errormsg").style.visibility="hidden";
-                      console.log(data.response);
+                      $scope.errormsg=false;
                       for (var i=0;i<$scope.artistNews.length;i++){
                          $scope.artistNews[i].date_found = formatDate( $scope.artistNews[i].date_found);
                          $scope.artistNews[i].summary = formatText($scope.artistNews[i].summary);
@@ -631,7 +631,7 @@ spotifyControllers.controller('artistController', function($scope, $http, $locat
                       }
                     }else{
                       document.getElementById("newsfeed").style.visibility="hidden";
-                      document.getElementById("errormsg").style.visibility="visible";
+                      $scope.errormsg=true;
                     }
                 });
 

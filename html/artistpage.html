@@ -28,9 +28,13 @@
 
             <br>
 
-            <p id="errormsg" style="visibility:hidden">
-              This artist has no news.
-            </p>
+            <div ng-show=errormsg>
+              <p>This artist has no news.</p>
+
+              <div ng-bind-html=playButton>
+
+              </div>
+            </div>
 
             <div flex="100">
                 <div class="newsfeed" id="newsfeed">
