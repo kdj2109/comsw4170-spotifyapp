@@ -5,6 +5,9 @@ input {
 .nav-buttons-mobile {
   display: none;
 }
+blockquote {
+  overflow: hidden;
+}
 @media (max-width: 689px) {
   .nav-buttons {
     display: none;
@@ -34,6 +37,14 @@ input {
 body {
   color: #23CF5F;
   font-weight: 300;
+  transition: all 0.5s ease;
+}
+body a {
+  transition: all 0.5s ease;
+  color: #23CF5F;
+}
+body a:hover {
+  color: #127334;
 }
 .spotify-app {
   max-width: 860px;
@@ -86,6 +97,7 @@ a.header-tab:visited {
 /* ARTISTS */
 .artistFeed img {
   max-width: 400px;
+  border-radius: 100em;
 }
 .artistsPage {
   max-width: 765px;
@@ -209,4 +221,7 @@ a:visited {
 }
 .myArtistList ::webkit-scrollbar {
   display: none;
+}
+.red {
+  color: #b61515;
 }
