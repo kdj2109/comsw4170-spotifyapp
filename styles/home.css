@@ -1,4 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:300);
+input {
+  transition: all 0.5s ease;
+}
 .nav-buttons-mobile {
   display: none;
 }
@@ -13,12 +16,19 @@
     z-index: 1000;
     position: absolute;
     background: white;
-    width: 140px;
+    padding: 0;
   }
   .navMenu li {
     list-style-type: none;
     padding: .5em;
     border: 1px solid #eef;
+    transition: all 0.5s ease;
+  }
+  .navMenu li:hover {
+    background-color: #00d95a;
+  }
+  .navMenu li:hover a {
+    color: #fff;
   }
 }
 body {
@@ -116,8 +126,8 @@ blockquote p {
   margin-right: 2px;
 }
 .main-feed {
-  /*max-width: 785px;*/
   margin: 0 auto;
+  margin-left: 4em;
 }
 @media (max-width: 689px) {
   .main-feed {
