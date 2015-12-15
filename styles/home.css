@@ -219,9 +219,17 @@ a:visited {
   overflow: scroll;
   overflow-x: hidden;
 }
-.myArtistList ::webkit-scrollbar {
+.myArtistLIst::webkit-scrollbar {
   display: none;
+}
+.artist-image {
+  height: 300px;
+  width: 300px;
+  border-radius: 300px;
 }
 .red {
   color: #b61515;
+}
+.pointer {
+  cursor: pointer;
 }
