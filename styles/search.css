@@ -1,7 +1,7 @@
 #search-results {
     overflow: scroll;
     position: absolute;
-    max-height: 128px;
+    max-height: 124px;
     width:264px;
     z-index: 2;
     margin-left: 20px;

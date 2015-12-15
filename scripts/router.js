@@ -21,6 +21,9 @@ spotify_app
       when('/help', {
         templateUrl: 'help.html'
       }).
+      when('/artist/:artistName', {
+        templateUrl: 'artistpage.html'
+      }).
       otherwise, {
         templateUrl: 'help.html'
       }

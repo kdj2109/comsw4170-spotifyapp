@@ -2,25 +2,28 @@
 <div layout="column" ng-controller="ArtistController" class="artistsPage">
     <div flex layout="row" class="myArtists">
       <!--List of My Artists-->
-      <flex="20"> 
+      <flex="20">
         <md-list>
-        <md-list-item style="background-color:#d3d3d3;" layout="row" layout-align="center">
-            <div flex="80" layout="row" layout-align="center"><h3>My Artists</h3></div>
+        <md-list-item style="background-color:#d3d3d3;border-radius:2px; width: 200px;" layout="row" layout-align="center">
+            <div flex="80" layout="row" layout-align="center">My Artists</div>
             <div flex="20" layout="row" layout-align="end">
-               <img ng-hide=editing src="https://cdn3.iconfinder.com/data/icons/glypho-free/64/pen-checkbox-128.png" style="height:25px;width:25px;" ng-click="edit()">
-               <img ng-show=editing src="https://cdn4.iconfinder.com/data/icons/basic-ui-elements/700/011_yes-128.png" style="height:20px;width:20px;" ng-click="edit()">
+                <i class="fa fa-pencil pointer" ng-hide="editing"ng-click="edit()"></i>
+                <i class="fa fa-check-circle pointer" ng-show="editing" ng-click="edit()"></i>
+               <!--<img ng-hide=editing src="https://cdn3.iconfinder.com/data/icons/glypho-free/64/pen-checkbox-128.png" style="height:25px;width:25px;" ng-click="edit()">
+               <img ng-show=editing src="https://cdn4.iconfinder.com/data/icons/basic-ui-elements/700/011_yes-128.png" style="height:20px;width:20px;" ng-click="edit()">-->
             </div>
         </md-list-item>
 
 
-          <md-list-item ng-repeat="artist in myArtists" ng-click="switchArtist(artist);" layout="row">
+          <md-list-item style="background-color:#00d95a;border-radius:2px;" ng-repeat="artist in myArtists" ng-click="switchArtist(artist);" layout="row">
               <div flex="80" layout="row">
                 <div class="md-list-item-text">
                   {{artist}}
                 </div>
               </div>
              <div flex="20" layout="row" layout-align="end">
-               <img src="http://www.clker.com/cliparts/a/x/q/L/G/9/delete-icon-md.png" style="height:15px;width:15px;opacity:0.8;" ng-click="deleteArtist($index)" ng-show=editing>
+                 <i class="fa fa-trash-o pointer" ng-show="editing" ng-click="deleteArtist($index)"></i>
+               <!--<img src="http://www.clker.com/cliparts/a/x/q/L/G/9/delete-icon-md.png" style="height:15px;width:15px;opacity:0.8;" ng-click="deleteArtist($index)" ng-show=editing>-->
             </div>
           </md-list-item>
         </md-list>

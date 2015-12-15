@@ -55,6 +55,12 @@ a.header-tab:visited {
   text-decoration: none;
   padding: 15px;
 }
+
+.search-link, a.search-link:visited {
+  text-decoration: none;
+  color: #999;
+}
+
 #welcome {
   width: 100%;
   left: 0;
@@ -138,4 +144,14 @@ blockquote p {
   #search {
     margin: 0 auto;
   }
+}
+
+.artist-image {
+    width: 300px;
+    height: 300px;
+    border-radius: 4px;
+}
+
+.pointer {
+    cursor: pointer;
 }

@@ -57,6 +57,10 @@ spotifyControllers.controller('searchBarCtrl',
         // List of artists
         $scope.artist_list = [];
 
+        $scope.clear_search = function() {
+            $scope.show_artist_list = false;
+        }
+
         // list of artists user is already tracking
         // $scope.userArtists = localStorageService.get('userArtists') || [];
         userArtistsShared.set(localStorageService.get('userArtists') || []);
@@ -106,7 +110,7 @@ spotifyControllers.controller('searchBarCtrl',
           $scope.userArtists.push(artistName);
           userArtistsShared.set($scope.userArtists);
           localStorageService.set('userArtists', $scope.userArtists);
-
+          $scope.show_artist_list = false;
           showSuccess(artistName);
 
         };
