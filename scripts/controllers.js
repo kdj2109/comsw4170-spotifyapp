@@ -420,16 +420,25 @@ spotifyControllers.controller('ArtistController', function($scope, $http, $sce, 
   // $scope.myArtists = localStorageService.get('userArtists') || ["U2", "Nick Jonas", "The Weeknd", "Drake", "Kendrick Lamar", "Fetty Wap","Beyonce", "Nicki Minaj", "Justin Bieber"];
   
   $scope.myArtists = userArtistsShared.get();
+  var firstArtist;
 
   if ($scope.myArtists.length > 0) {
     $rootScope.no_artists = false;
   }
 
-  var firstArtist = localStorageService.get('lastArtist');
-
   if ($scope.myArtists.length === 0) {
     firstArtist = '';
   }
+
+  else if ($scope.myArtists.length === 1) {
+    firstArtist = $scope.myArtists[0];
+  }
+
+  else {
+    firstArtist = localStorageService.get('lastArtist');
+  }
+
+  console.log(firstArtist);
 
   $scope.setFirst = function() {
 
