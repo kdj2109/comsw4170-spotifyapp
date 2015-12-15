@@ -25,7 +25,7 @@
     </div> -->
 
 
-    <div ng-repeat="news in allNews">
+    <div ng-repeat="news in allNews | orderBy:myValueFunction:true">
       <md-card flex-gt-sm="90" flex-gt-md="80" >
           <md-card-content>
               <md-list>

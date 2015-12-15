@@ -211,6 +211,10 @@ spotifyControllers.controller('NewsFeedController', function($scope, $http, $mdD
 
   }
 
+  $scope.myValueFunction = function(news) {
+    return (new Date(news.date_found));
+  };
+
   $scope.formatText = function(text){
     text = text.replace(/<span>|<\/span>/g, '');
     text = text.replace(/&#39;/g, '\'');
