@@ -11,7 +11,7 @@
             </div>
         <md-list class="myArtistList">
 
-          <md-list-item ng-repeat="artist in myArtists" ng-click="switchArtist(artist);" layout="row">
+          <md-list-item ng-class="$even ? 'odd' : 'even'" ng-repeat="artist in myArtists" ng-click="switchArtist(artist);" layout="row">
               <div flex="80" layout="row">
                 <div class="md-list-item-text">
                   {{artist}}
