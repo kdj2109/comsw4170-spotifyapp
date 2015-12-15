@@ -39,7 +39,7 @@ input {
 }
 
 body {
-  color: #00d95a;
+  color: #23CF5F;
 	font-weight: 300;
 }
 
@@ -151,6 +151,42 @@ blockquote p {
 }
 
 .main-feed {
+
+  .prev {
+    display: inline-block;
+    padding: 1em;
+    background: rgb(238,238,238);
+    border-radius: 5px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .next {
+    display: inline-block;
+    float: right;
+    padding: 1em;
+    background: rgb(238,238,238);
+    border-radius: 5px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  transition: all 0.5s ease;
+
+  a {
+    transition: all 0.5s ease;
+
+    color: #23CF5F;
+
+    &:hover {
+      color: #127334;
+    }
+  }
+
   margin: 0 auto;
   margin-left: 4em;
 
