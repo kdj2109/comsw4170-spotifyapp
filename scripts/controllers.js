@@ -64,7 +64,7 @@ spotifyControllers.controller('searchBarCtrl',
         // list of artists user is already tracking
         // $scope.userArtists = localStorageService.get('userArtists') || [];
         userArtistsShared.set(localStorageService.get('userArtists') || []);
-        $scope.userArtists = userArtistsShared.get() 
+        $scope.userArtists = userArtistsShared.get();
 
         // Base url to query for artists
         var base_url = 'https://api.spotify.com/v1/search?type=artist&q='
@@ -132,7 +132,7 @@ spotifyControllers.controller('searchBarCtrl',
         function showAlert(artistName) {
           alert = $mdDialog.alert()
             .title('Error')
-            .content('You are already tracking' + artistName + ' this artist.')
+            .content('You are already tracking ' + artistName + '.')
             .ok('Close');
 
           $mdDialog
@@ -145,16 +145,12 @@ spotifyControllers.controller('searchBarCtrl',
     }
 );
 
-// my artists page
-spotifyControllers.controller('myArtistsController', function($scope, $http, $mdDialog, localStorageService) { 
-
-});
 
 /* NEWSFEED CONTROLLER */
-spotifyControllers.controller('NewsFeedController', function($scope, $http, $mdDialog, localStorageService) {
+spotifyControllers.controller('NewsFeedController', function($scope, $http, $mdDialog, localStorageService, userArtistsShared) {
   console.log('hello');
 
-
+  $scope.feedArtists = userArtistsShared.get();
 
 });
 
@@ -300,7 +296,16 @@ spotifyControllers.controller('ArtistController', function($scope, $http, $sce, 
       $http.get(url).success(function(data) { 
         $scope.newsfeed=true;
         $scope.artistData = data.artists;
-        $scope.artistPicture = data.artists.items[0].images[0].url;
+        $scope.artistPicture;
+
+        // check if artist has any pictures, and if not, assign a no_img url
+        if (data.artists.items[0].images.length > 0) {
+          $scope.artistPicture = data.artists.items[0].images[0].url;
+        } else {
+          $scope.artistPicture = '/assets/no_img.png';
+        }
+
+
         $scope.artistName = data.artists.items[0].name;
         var artistID = data.artists.items[0].id
 
@@ -385,5 +390,259 @@ $scope.deleteArtist = function(i){
   userArtistsShared.set($scope.myArtists);
 
 }
+
+});
+
+
+spotifyControllers.controller('artistController', function($scope, $http, $location, $sce, $mdDialog, localStorageService, userArtistsShared) {
+    var showArtistPage = function(artistName) {
+
+        if(artistName=="newsfeed"){
+            var frame="<span></span>";
+            $scope.iframe = $sce.trustAsHtml(frame);
+            $scope.newsfeed=false;
+
+        }else{
+          var url = 'https://api.spotify.com/v1/search?q='+artistName+'&type=artist&limit=1';
+
+          //get artist ID from name
+          $http.get(url).success(function(data) {
+            $scope.newsfeed=true;
+            $scope.artistData = data.artists;
+            $scope.artistPicture;
+
+            // check if artist has any pictures, and if not, assign a no_img url
+            if (data.artists.items[0].images.length > 0) {
+              $scope.artistPicture = data.artists.items[0].images[0].url;
+            } else {
+              $scope.artistPicture = '/assets/no_img.png';
+            }
+
+
+            $scope.artistName = data.artists.items[0].name;
+            var artistID = data.artists.items[0].id
+            console.log(artistID);
+
+
+            //get top tracks from artist ID
+            url = 'https://api.spotify.com/v1/artists/'+artistID+'/top-tracks?country=US';
+            $http.get(url).success(function(data){
+                $scope.trackset="";
+                $scope.artistData="";
+                $scope.songs = data.tracks;
+
+                //create iframe spotify list
+                for(var i=0; i<5;i++){
+                  var id = $scope.songs[i].id + ",";
+                  $scope.trackset = $scope.trackset.concat(id);
+                }
+                var frame="<iframe src='https://embed.spotify.com/follow/1/?uri=spotify:artist:"+artistID+
+                "&size=basic&theme=light' width='200' height='25' scrolling='no' frameborder='0' style='border:none; overflow:hidden;'' allowtransparency='true'></iframe>"
+                $scope.iframe = $sce.trustAsHtml(frame);
+
+
+
+                //get artists biographies news from echo
+
+                url = 'http://developer.echonest.com/api/v4/artist/news?callback=JSON_CALLBACK'+
+                '&format=jsonp&api_key=NGB9ACOOVZV9AOTEZ&id=spotify:artist:'+artistID;
+                $http.jsonp(url).success(function(data){
+                  $scope.artistNews = data.response.news;
+                  console.log(data.response);
+                  for (var i=0;i<$scope.artistNews.length;i++){
+                     $scope.artistNews[i].date_found = formatDate( $scope.artistNews[i].date_found);
+                     $scope.artistNews[i].summary = formatText($scope.artistNews[i].summary);
+                     $scope.artistNews[i].name = formatText($scope.artistNews[i].name);
+
+                  }
+                  start = data.response.start + 15;
+                  if (start < data.response.total - 1) {
+                    $scope.next_news_url = url + '&start=' + start;
+                    show_next_news_arrow();
+                  }
+                  else {
+                    $scope.next_news_url = null;
+                    hide_next_news_arrow();
+                  }
+
+                  start = data.response.start - 15;
+                  if (start >= 0) {
+                    $scope.previous_news_url = url + '&start=' + start;
+                    show_previous_news_arrow();
+                  }
+                  else {
+                    $scope.previous_new_url = null;
+                    hide_previous_news_arrow();
+                  }
+                });
+
+            }).error(function(data){
+              console.log('tracks not found');
+            })
+          }).error(function(data) {
+            console.log(data);
+            console.log('artist not found')
+          });
+        }
+     }
+
+     var formatText = function(text){
+       text = text.replace(/<span>|<\/span>/g, '');
+       text = text.replace(/&#39;/g, '\'');
+       text = text.replace(/&#34;/g, '\"');
+
+       return text;
+     }
+
+
+    var formatDate = function(datestring){
+      var monthNames = ["January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+      ];
+
+      var date = new Date(datestring);
+      var month = monthNames[date.getMonth()];
+      var year = date.getFullYear();
+      var day = date.getDate();
+
+      return month + " "+ day + ", " + year;
+
+    }
+
+
+     $scope.init = function() {
+        url = $location.path()
+        artist_name = url.split('/')[2]
+        showArtistPage(artist_name);
+        $scope.artist = artist_name;
+        userArtistsShared.set(localStorageService.get('userArtists') || []);
+        $scope.userArtists = userArtistsShared.get();
+     }
+
+     $scope.trackArtist = function(artistName) {
+
+       console.log(artistName);
+
+       // already in the list of artists!
+       if ($scope.userArtists.indexOf(artistName) >= 0) {
+         showAlert(artistName);
+         return;
+       }
+
+       $scope.userArtists.push(artistName);
+       userArtistsShared.set($scope.userArtists);
+       localStorageService.set('userArtists', $scope.userArtists);
+       $scope.show_artist_list = false;
+       showSuccess(artistName);
+
+     };
+
+     function showSuccess(artistName) {
+       alert = $mdDialog.alert()
+         .title('Success')
+         .content('You are now tracking ' + artistName + '!')
+         .ok('Close');
+
+       $mdDialog
+           .show( alert )
+           .finally(function() {
+             alert = undefined;
+           });
+     }
+
+     function showAlert(artistName) {
+       alert = $mdDialog.alert()
+         .title('Error')
+         .content('You are already tracking ' + artistName + '.')
+         .ok('Close');
+
+       $mdDialog
+           .show( alert )
+           .finally(function() {
+             alert = undefined;
+           });
+     }
+
+     $scope.next_news_arrow = false;
+     $scope.previous_news_arrow = false;
+
+     var show_next_news_arrow = function() {
+        $scope.next_news_arrow = true;
+     }
+
+     var hide_next_news_arrow = function() {
+         $scope.next_news_arrow = false;
+     }
+
+     var show_previous_news_arrow = function() {
+        $scope.previous_news_arrow = true;
+     }
+
+     var hide_previous_news_arrow = function() {
+        $scope.previous_news_arrow = false;
+     }
+
+     $scope.next_news = function() {
+         $http.jsonp($scope.next_news_url).success(function(data){
+           $scope.artistNews = data.response.news;
+           for (var i=0;i<$scope.artistNews.length;i++){
+              $scope.artistNews[i].date_found = formatDate( $scope.artistNews[i].date_found);
+              $scope.artistNews[i].summary = formatText($scope.artistNews[i].summary);
+              $scope.artistNews[i].name = formatText($scope.artistNews[i].name);
+
+           }
+           start = data.response.start + 15;
+
+           if (start < data.response.total - 1) {
+             $scope.next_news_url = url + '&start=' + start;
+             show_next_news_arrow();
+           }
+           else {
+             $scope.next_news_url = null;
+             hide_next_news_arrow();
+           }
+
+           start = data.response.start - 15;
+           if (start >= 0) {
+             $scope.previous_news_url = url + '&start=' + start;
+             show_previous_news_arrow();
+           }
+           else {
+             $scope.previous_new_url = null;
+             hide_previous_news_arrow();
+           }
+
+         });
+     }
+
+     $scope.previous_news = function() {
+        $http.jsonp($scope.previous_news_url).success(function(data){
+           $scope.artistNews = data.response.news;
+           for (var i=0;i<$scope.artistNews.length;i++){
+              $scope.artistNews[i].date_found = formatDate( $scope.artistNews[i].date_found);
+              $scope.artistNews[i].summary = formatText($scope.artistNews[i].summary);
+              $scope.artistNews[i].name = formatText($scope.artistNews[i].name);
+
+           }
+           start = data.response.start + 15;
+           if (start < data.response.total - 1) {
+             $scope.next_news_url = url + '&start=' + start;
+             show_next_news_arrow();
+           }
+           else {
+             $scope.next_news_url = null;
+             hide_next_news_arrow();
+           }
+           start = data.response.start - 15;
+           if (start >= 0) {
+             $scope.previous_news_url = url + '&start=' + start;
+             show_previous_news_arrow();
+           }
+           else {
+             $scope.previous_new_url = null;
+             hide_previous_news_arrow();
+           }
+         });
+     }
 
 });

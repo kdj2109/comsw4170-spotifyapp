@@ -13,12 +13,19 @@
     z-index: 1000;
     position: absolute;
     background: white;
-    width: 140px;
+    padding: 0;
   }
   .navMenu li {
     list-style-type: none;
     padding: .5em;
     border: 1px solid #eef;
+    transition: all 0.5s ease;
+  }
+  .navMenu li:hover {
+    background-color: #00d95a;
+  }
+  .navMenu li:hover a {
+    color: #fff;
   }
 }
 body {
@@ -55,7 +62,6 @@ a.header-tab:visited {
   text-decoration: none;
   padding: 15px;
 }
-
 .search-link, a.search-link:visited {
   text-decoration: none;
   color: #999;
@@ -145,13 +151,36 @@ blockquote p {
     margin: 0 auto;
   }
 }
-
-.artist-image {
-    width: 300px;
-    height: 300px;
-    border-radius: 4px;
+.tabsdemoDynamicHeight md-content {
+  background-color: transparent !important;
+}
+.tabsdemoDynamicHeight md-content md-tabs {
+  background: #f6f6f6;
+  border: 1px solid #e1e1e1;
+}
+.tabsdemoDynamicHeight md-content md-tabs md-tabs-wrapper {
+  background: white;
+}
+.tabsdemoDynamicHeight md-content h1:first-child {
+  margin-top: 0;
+}
+.text-center {
+  text-align: center;
 }
 
-.pointer {
-    cursor: pointer;
+.artist-image {
+  width: 300px;
+  height: 300px;
+  border-radius: 300px;
+}
+
+div.widget {
+  padding: 0px 0px 0px 15px;
+}
+
+.profile-body {
+  max-height: 400px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+
 }
