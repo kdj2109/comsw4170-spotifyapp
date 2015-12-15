@@ -9,7 +9,7 @@
 
     <!-- {{ news_per_artist }} -->
 
-    <div ng-repeat="(artist, value) in news_per_artist">
+    <!-- <div ng-repeat="(artist, value) in news_per_artist">
       <md-card flex-gt-sm="90" flex-gt-md="80"  ng-repeat="news in value">
           <md-card-content>
               <md-list>
@@ -22,11 +22,27 @@
               </md-list>
           </md-card-content>
       </md-card>
+    </div> -->
+
+
+    <div ng-repeat="news in allNews">
+      <md-card flex-gt-sm="90" flex-gt-md="80" >
+          <md-card-content>
+              <md-list>
+                  <md-item-content>
+                      <!-- <h4>{{artist}}</h4> -->
+                      <h3><a target="_blank" href="{{news.url}}">{{formatText(news.name)}} <i class="fa fa-external-link"></i></a></h3>
+                      <p><i class="fa fa-calendar"></i> {{formatDate(news.date_found)}}</p>
+                      <p>Summary: <blockquote>{{formatText(news.summary)}}</blockquote></p>
+                  </md-item-content>
+              </md-list>
+          </md-card-content>
+      </md-card>
     </div>
 
-    <div>
-        <div class="prev" ng-click="prevNews()"><i class="fa fa-arrow-left"></i> Previous</div>
-        <div class="next" ng-click="nextNews()">Next <i class="fa fa-arrow-right"></i></div>
+    <div class="text-center">
+        <div class="more " ng-click="moreNews()"><i class="fa fa-arrow-down"></i> View More </div>
+        
     </div>
 
 </div>

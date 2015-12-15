@@ -138,17 +138,20 @@ blockquote p {
   margin-right: 2px;
 }
 .main-feed {
+  padding-bottom: 3em;
   transition: all 0.5s ease;
   margin: 0 auto;
   margin-left: 4em;
 }
-.main-feed .prev {
+.main-feed .more {
+  margin: 0 auto;
+  text-align: center;
   display: inline-block;
   padding: 1em;
   background: #eeeeee;
   border-radius: 5px;
 }
-.main-feed .prev:hover {
+.main-feed .more:hover {
   cursor: pointer;
 }
 .main-feed .next {
@@ -242,13 +245,14 @@ a {
 a:hover {
   color: #127334;
 }
-
 .even {
-    background-color: #f0f0f0;
-    border-radius: 2px;
+  background-color: #f0f0f0;
+  border-radius: 2px;
 }
-
 .odd {
   background-color: #e5e5e5;
   border-radius: 2px;
+}
+.text-center {
+  text-align: center;
 }

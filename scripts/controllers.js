@@ -195,6 +195,8 @@ spotifyControllers.controller('NewsFeedController', function($scope, $http, $mdD
 
   $scope.news_per_artist = {};
 
+  $scope.allNews = [];
+
   $scope.formatDate = function(datestring){
     var monthNames = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
@@ -217,17 +219,22 @@ spotifyControllers.controller('NewsFeedController', function($scope, $http, $mdD
     return text;
   }
 
-  $scope.nextNews = function() {
-    console.log('next');
-  }
+  $scope.startNum = 0;
 
-  $scope.prevNews = function() {
-    console.log('prev');
+  $scope.moreNews = function() {
+    $scope.startNum += $scope.startNum * numResults;
+
+    console.log($scope.startNum);
+
+    for (var i = 0; i < $scope.feedArtists.length; i++) {
+      $scope.getNews($scope.feedArtists[i], numResults, $scope.startNum);
+    }
+
   }
 
   // news endpoint
-  $scope.getNews = function(artistName, numResults) {
-    var req = { 'name': artistName, 'api_key': API_KEY, 'format': 'jsonp', 'results':  numResults };
+  $scope.getNews = function(artistName, numResults, startNum) {
+    var req = { 'name': artistName, 'api_key': API_KEY, 'format': 'jsonp', 'results':  numResults , 'start': startNum};
     var url = 'http://developer.echonest.com/api/v4/artist/news?callback=JSON_CALLBACK&' + serialize(req);
 
     console.log(url);
@@ -236,7 +243,23 @@ spotifyControllers.controller('NewsFeedController', function($scope, $http, $mdD
       .then(function(data) { 
         console.log('success');
         console.log(data);
-        $scope.news_per_artist[artistName] = data.data.response.news;
+        if ($scope.news_per_artist.hasOwnProperty(artistName)) {
+          console.log($scope.news_per_artist[artistName])
+          var tmp_arr = $scope.news_per_artist[artistName].concat(data.data.response.news);
+          $scope.news_per_artist[artistName] = tmp_arr;
+
+          var tmp = $scope.allNews.concat(data.data.response.news);
+          $scope.allNews = tmp;
+          
+
+          console.log($scope.news_per_artist[artistName])
+        }
+
+        else {
+          $scope.news_per_artist[artistName] = data.data.response.news;
+          var tmp = $scope.allNews.concat(data.data.response.news);
+          $scope.allNews = tmp;
+        }
       }, 
       function(error) {
         console.log('errorrrrrrr');
@@ -250,8 +273,10 @@ spotifyControllers.controller('NewsFeedController', function($scope, $http, $mdD
   // var news = [];
 
   for (var i = 0; i < $scope.feedArtists.length; i++) {
-    $scope.getNews($scope.feedArtists[i], numResults);
+    $scope.getNews($scope.feedArtists[i], numResults, $scope.startNum);
   }
+
+  $scope.startNum++;
 
 });
 
