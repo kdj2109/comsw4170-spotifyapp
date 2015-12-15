@@ -292,7 +292,16 @@ spotifyControllers.controller('ArtistController', function($scope, $http, $sce, 
       $http.get(url).success(function(data) { 
         $scope.newsfeed=true;
         $scope.artistData = data.artists;
-        $scope.artistPicture = data.artists.items[0].images[0].url;
+        $scope.artistPicture;
+
+        // check if artist has any pictures, and if not, assign a no_img url
+        if (data.artists.items[0].images.length > 0) {
+          $scope.artistPicture = data.artists.items[0].images[0].url;
+        } else {
+          $scope.artistPicture = '/assets/no_img.png';
+        }
+
+
         $scope.artistName = data.artists.items[0].name;
         var artistID = data.artists.items[0].id
 
