@@ -371,6 +371,10 @@ spotifyControllers.controller('ArtistController', function($scope, $http, $sce, 
 
   var firstArtist = localStorageService.get('lastArtist');
 
+  if ($scope.myArtists.length === 0) {
+    firstArtist = '';
+  }
+
   $scope.setFirst = function() {
 
     if (firstArtist) {
