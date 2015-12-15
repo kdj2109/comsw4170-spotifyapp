@@ -121,6 +121,44 @@ spotifyControllers.controller('searchBarCtrl',
 
         };
 
+        $scope.alreadyTracking = function(artistName) {
+          if ($scope.userArtists.indexOf(artistName) >= 0) {
+              return true;
+          }
+          return false;
+        }
+
+        $scope.removeArtist = function(artistName) {
+
+           console.log(artistName);
+
+          var index = $scope.userArtists.indexOf(artistName);
+
+          if (index > -1) {
+            $scope.userArtists.splice(index, 1);
+            userArtistsShared.set($scope.userArtists);
+            localStorageService.set('userArtists', $scope.userArtists);
+            showRemoval(artistName);
+          } else {
+            console.log('this should not happen');
+          }
+           
+         };
+
+
+         function showRemoval(artistName) {
+           alert = $mdDialog.alert()
+             .title('Removed ' + artistName)
+             .content('You have stopped tracking ' + artistName + '!')
+             .ok('Close');
+
+           $mdDialog
+               .show( alert )
+               .finally(function() {
+                 alert = undefined;
+               });
+         }
+
 
         function showSuccess(artistName) {
           alert = $mdDialog.alert()
@@ -379,7 +417,6 @@ spotifyControllers.controller('ArtistController', function($scope, $http, $sce, 
           $scope.artistPicture = '/assets/no_img.png';
         }
 
-
         $scope.artistName = data.artists.items[0].name;
         var artistID = data.artists.items[0].id
 
@@ -606,7 +643,14 @@ spotifyControllers.controller('artistController', function($scope, $http, $locat
       var day = date.getDate();
 
       return month + " "+ day + ", " + year;
+    }
 
+
+    $scope.alreadyTracking = function(artistName) {
+      if ($scope.userArtists.indexOf(artistName) >= 0) {
+          return true;
+      }
+      return false;
     }
 
 
@@ -636,6 +680,43 @@ spotifyControllers.controller('artistController', function($scope, $http, $locat
        showSuccess(artistName);
 
      };
+
+     $scope.removeArtist = function(artistName) {
+
+       console.log(artistName);
+
+       // already in the list of artists!
+       // if ($scope.userArtists.indexOf(artistName) >= 0) {
+       //   showAlert(artistName);
+       //   return;
+       // }
+
+      var index = $scope.userArtists.indexOf(artistName);
+
+      if (index > -1) {
+        $scope.userArtists.splice(index, 1);
+        userArtistsShared.set($scope.userArtists);
+        localStorageService.set('userArtists', $scope.userArtists);
+        showRemoval(artistName);
+        $scope.show_artist_list = false;
+      }
+       
+     };
+
+
+     function showRemoval(artistName) {
+       alert = $mdDialog.alert()
+         .title('Removed ' + artistName)
+         .content('You have stopped tracking ' + artistName + '!')
+         .ok('Close');
+
+       $mdDialog
+           .show( alert )
+           .finally(function() {
+             alert = undefined;
+           });
+     }
+
 
      function showSuccess(artistName) {
        alert = $mdDialog.alert()

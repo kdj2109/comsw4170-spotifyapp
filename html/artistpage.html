@@ -9,7 +9,10 @@
                         <!--<br><br><br><br><br><br>-->
                         <a href="{{}}" target="_blank"><img src='{{artistPicture}}' class="artist-image" ng-cloak></img></a>
                         <br>
-                        <h4 class="text-center">{{artistName}} <i class="fa fa-plus-circle fa-lg green add-button" ng-click="trackArtist(artist)"></i></h4>
+                        <h4 class="text-center">{{artistName}} 
+                            <i class="fa fa-plus-circle fa-lg green add-button" ng-show="!alreadyTracking(artist)" ng-click="trackArtist(artist)"></i>
+                            <i class="fa fa-minus-circle fa-lg red add-button" ng-show="alreadyTracking(artist)" ng-click="removeArtist(artist)"></i>
+                        </h4>
                         <div ng-bind-html=iframe class="widget" style="display:block; margin: 0 auto; text-align:center;">
                         </div>
                     <!--<div ng-cloak class="text-center">
