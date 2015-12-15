@@ -323,8 +323,10 @@ spotifyControllers.controller('ArtistController', function($scope, $http, $sce, 
             
             //create iframe spotify list
             for(var i=0; i<10;i++){
-              var id = $scope.songs[i].id + ",";
-              $scope.trackset = $scope.trackset.concat(id);
+              if($scope.songs[i]!=undefined){
+                var id = $scope.songs[i].id + ",";
+                $scope.trackset = $scope.trackset.concat(id);
+              }
             } 
             var playlist = "<iframe src='https://embed.spotify.com/?uri=spotify:trackset:PREFEREDTITLE:"+$scope.trackset+"' frameborder='0' allowtransparency='true'"+
             "height='600px' width='460px'></iframe>";
@@ -344,6 +346,7 @@ spotifyControllers.controller('ArtistController', function($scope, $http, $sce, 
               if(data.response.news[0]==undefined){
                 document.getElementById("newsfeed").style.visibility="hidden";
                 document.getElementById("artistPage").style.visibility="visible";
+                console.log("here");
               }else{
                 for (var i=0;i<$scope.artistNews.length;i++){
                    $scope.artistNews[i].date_found = formatDate( $scope.artistNews[i].date_found);  
