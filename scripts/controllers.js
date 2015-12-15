@@ -265,7 +265,8 @@ spotifyControllers.controller('ArtistController', function($scope, $http, $sce, 
   $scope.myArtists = userArtistsShared.get();
 
   $scope.setFirst = function(){
-    if($scope.myArtists[0]!=undefined){ $scope.switchArtist($scope.myArtists[0]); }
+    if($scope.myArtists[0]!=undefined){ $scope.switchArtist($scope.myArtists[0]);}
+    else{document.getElementById("newsfeed").style.visibility="hidden";}
   }
 
   // if (!localStorageService.get('userArtists')) {
@@ -337,8 +338,8 @@ spotifyControllers.controller('ArtistController', function($scope, $http, $sce, 
               for (var i=0;i<$scope.artistNews.length;i++){
                  $scope.artistNews[i].date_found = formatDate( $scope.artistNews[i].date_found);  
                  $scope.artistNews[i].summary = formatText($scope.artistNews[i].summary);
-                 $scope.artistNews[i].name = formatText($scope.artistNews[i].name);              
-                
+                 $scope.artistNews[i].name = formatText($scope.artistNews[i].name);   
+                 document.getElementById("newsfeed").style.visibility="visible";           
               }
             })
 
