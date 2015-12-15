@@ -621,6 +621,55 @@ spotifyControllers.controller('artistController', function($scope, $http, $locat
                     }
                 });
 
+                //get artists biographies news from echo
+
+                url = 'http://developer.echonest.com/api/v4/artist/news?callback=JSON_CALLBACK'+
+                '&format=jsonp&api_key=NGB9ACOOVZV9AOTEZ&id=spotify:artist:'+artistID;
+                $http.jsonp(url).success(function(data){
+                  $scope.artistNews = data.response.news;
+                  if(data.response.news[0]==undefined){
+                    document.getElementById("newsfeed").style.visibility="hidden";
+                    document.getElementById("artistPage").style.visibility="visible";
+                    console.log("here");
+                  }else{
+                    for (var i=0;i<$scope.artistNews.length;i++){
+                       $scope.artistNews[i].date_found = formatDate($scope.artistNews[i].date_found);
+                       $scope.artistNews[i].summary = formatText($scope.artistNews[i].summary);
+                       $scope.artistNews[i].name = formatText($scope.artistNews[i].name);
+                       document.getElementById("artistPage").style.visibility="visible";
+                       document.getElementById("newsfeed").style.visibility="visible";
+
+                    }
+                  }
+
+                  //get blog posts
+                  url = 'http://developer.echonest.com/api/v4/artist/blogs?callback=JSON_CALLBACK'+
+                  '&format=jsonp&api_key=NGB9ACOOVZV9AOTEZ&id=spotify:artist:'+artistID;
+                  $http.jsonp(url).success(function(data){
+                    $scope.artistBlogs = data.response.blogs;
+                    for(var i=0; i<$scope.artistBlogs.length;i++){
+                      $scope.artistBlogs[i].date_posted = formatDate($scope.artistBlogs[i].date_posted);
+                      $scope.artistBlogs[i].summary = formatText($scope.artistBlogs[i].summary);
+                      $scope.artistBlogs[i].name = formatText($scope.artistBlogs[i].name);
+                    }
+                      //get artist reviews
+                      url = 'http://developer.echonest.com/api/v4/artist/reviews?callback=JSON_CALLBACK'+
+                      '&format=jsonp&api_key=NGB9ACOOVZV9AOTEZ&id=spotify:artist:'+artistID;
+                      $http.jsonp(url).success(function(data){
+                      $scope.artistReviews = data.response.reviews;
+                        for(var i=0; i<$scope.artistReviews.length;i++){
+                          $scope.artistReviews[i].date_found = formatDate($scope.artistReviews[i].date_found);
+                          $scope.artistReviews[i].summary = formatText($scope.artistReviews[i].summary);
+                          $scope.artistReviews[i].name = formatText($scope.artistReviews[i].name);
+                        }
+                      }).error(function(data){
+                        console.log("no reviews");
+                      })
+                  }).error(function(data){
+                      console.log("no blog posts");
+                  })
+                });
+
             }).error(function(data){
               console.log('tracks not found');
             })
