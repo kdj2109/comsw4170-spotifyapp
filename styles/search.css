@@ -29,3 +29,10 @@
 #search input {
     padding: .5em;
 }
+
+.search-link, a.search-link:visited {
+    text-decoration: none;
+    color: #999;
+}
+
+

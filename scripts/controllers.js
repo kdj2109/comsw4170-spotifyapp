@@ -46,6 +46,14 @@ spotifyControllers.controller('navController', function($scope) {
 /* SEARCH BAR CONTROLLER */
 spotifyControllers.controller('searchBarCtrl',
     function($scope, $http, $timeout, $mdDialog, localStorageService, userArtistsShared) {
+        $scope.display_artist_name = function(artist_name) {
+            if (artist_name.length > 25) {
+                return artist_name.slice(0, 25) + '...';
+            }
+
+            return artist_name;
+        }
+
         // Query string for the search bar in home.html
         $scope.query_string = '';
 
@@ -553,31 +561,11 @@ spotifyControllers.controller('artistController', function($scope, $http, $locat
                 '&format=jsonp&api_key=NGB9ACOOVZV9AOTEZ&id=spotify:artist:'+artistID;
                 $http.jsonp(url).success(function(data){
                   $scope.artistNews = data.response.news;
-                  console.log(data.response);
                   for (var i=0;i<$scope.artistNews.length;i++){
                      $scope.artistNews[i].date_found = formatDate( $scope.artistNews[i].date_found);
                      $scope.artistNews[i].summary = formatText($scope.artistNews[i].summary);
                      $scope.artistNews[i].name = formatText($scope.artistNews[i].name);
 
-                  }
-                  start = data.response.start + 15;
-                  if (start < data.response.total - 1) {
-                    $scope.next_news_url = url + '&start=' + start;
-                    show_next_news_arrow();
-                  }
-                  else {
-                    $scope.next_news_url = null;
-                    hide_next_news_arrow();
-                  }
-
-                  start = data.response.start - 15;
-                  if (start >= 0) {
-                    $scope.previous_news_url = url + '&start=' + start;
-                    show_previous_news_arrow();
-                  }
-                  else {
-                    $scope.previous_new_url = null;
-                    hide_previous_news_arrow();
                   }
                 });
 
@@ -666,88 +654,6 @@ spotifyControllers.controller('artistController', function($scope, $http, $locat
            .finally(function() {
              alert = undefined;
            });
-     }
-
-     $scope.next_news_arrow = false;
-     $scope.previous_news_arrow = false;
-
-     var show_next_news_arrow = function() {
-        $scope.next_news_arrow = true;
-     }
-
-     var hide_next_news_arrow = function() {
-         $scope.next_news_arrow = false;
-     }
-
-     var show_previous_news_arrow = function() {
-        $scope.previous_news_arrow = true;
-     }
-
-     var hide_previous_news_arrow = function() {
-        $scope.previous_news_arrow = false;
-     }
-
-     $scope.next_news = function() {
-         $http.jsonp($scope.next_news_url).success(function(data){
-           $scope.artistNews = data.response.news;
-           for (var i=0;i<$scope.artistNews.length;i++){
-              $scope.artistNews[i].date_found = formatDate( $scope.artistNews[i].date_found);
-              $scope.artistNews[i].summary = formatText($scope.artistNews[i].summary);
-              $scope.artistNews[i].name = formatText($scope.artistNews[i].name);
-
-           }
-           start = data.response.start + 15;
-
-           if (start < data.response.total - 1) {
-             $scope.next_news_url = url + '&start=' + start;
-             show_next_news_arrow();
-           }
-           else {
-             $scope.next_news_url = null;
-             hide_next_news_arrow();
-           }
-
-           start = data.response.start - 15;
-           if (start >= 0) {
-             $scope.previous_news_url = url + '&start=' + start;
-             show_previous_news_arrow();
-           }
-           else {
-             $scope.previous_new_url = null;
-             hide_previous_news_arrow();
-           }
-
-         });
-     }
-
-     $scope.previous_news = function() {
-        $http.jsonp($scope.previous_news_url).success(function(data){
-           $scope.artistNews = data.response.news;
-           for (var i=0;i<$scope.artistNews.length;i++){
-              $scope.artistNews[i].date_found = formatDate( $scope.artistNews[i].date_found);
-              $scope.artistNews[i].summary = formatText($scope.artistNews[i].summary);
-              $scope.artistNews[i].name = formatText($scope.artistNews[i].name);
-
-           }
-           start = data.response.start + 15;
-           if (start < data.response.total - 1) {
-             $scope.next_news_url = url + '&start=' + start;
-             show_next_news_arrow();
-           }
-           else {
-             $scope.next_news_url = null;
-             hide_next_news_arrow();
-           }
-           start = data.response.start - 15;
-           if (start >= 0) {
-             $scope.previous_news_url = url + '&start=' + start;
-             show_previous_news_arrow();
-           }
-           else {
-             $scope.previous_new_url = null;
-             hide_previous_news_arrow();
-           }
-         });
      }
 
 });

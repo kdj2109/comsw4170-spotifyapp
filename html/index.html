@@ -62,7 +62,7 @@
 
                 <div id="search-results" ng-show="show_artist_list">
                     <div class="artist" ng-repeat="artist in artist_list">
-                        <a class="search-link" href="#/artist/{{artist.name}}" ng-click="clear_search()">{{artist.name}}</a>
+                        <a class="search-link" href="#/artist/{{artist.name}}" ng-click="clear_search()">{{display_artist_name(artist.name)}}</a>
                         <i class="fa fa-plus-circle fa-lg green float-right add-button" ng-click="trackArtist(artist.name)"></i>
                     </div>
                 </div>
