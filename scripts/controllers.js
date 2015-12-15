@@ -381,6 +381,8 @@ $scope.edit = function(){
   }else{
     $scope.editing=false;
   }
+  $scope.setFirst();
+
 }
 
 
@@ -388,7 +390,7 @@ $scope.deleteArtist = function(i){
   $scope.myArtists.splice(i,1);
   localStorageService.set('userArtists', $scope.myArtists);
   userArtistsShared.set($scope.myArtists);
-
+  
 }
 
 });
