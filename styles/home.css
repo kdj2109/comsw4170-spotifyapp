@@ -65,11 +65,6 @@ a.header-tab:visited {
   text-decoration: none;
   padding: 15px;
 }
-.search-link, a.search-link:visited {
-  text-decoration: none;
-  color: #999;
-}
-
 #welcome {
   width: 100%;
   left: 0;
@@ -197,29 +192,21 @@ blockquote p {
 .text-center {
   text-align: center;
 }
-
-.artist-image {
-  width: 300px;
-  height: 300px;
-  border-radius: 300px;
+a:visited {
+  color: blue;
+  text-decoration: underline;
 }
-
-div.widget {
-  padding: 0px 0px 0px 15px;
+.artist-panel-header {
+  padding: 0 16px;
 }
-
-.profile-body {
-  max-height: 400px;
-  overflow-y: scroll;
+.artist-panel-header h3 {
+  display: inline-block;
+}
+.myArtistList {
+  max-height: 500px;
+  overflow: scroll;
   overflow-x: hidden;
-
 }
-
-blockquote { 
-  overflow:hidden;
-}
-
-a:visited{
-  color:blue;
-  text-decoration:underline;
+.myArtistList ::webkit-scrollbar {
+  display: none;
 }

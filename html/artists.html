@@ -3,17 +3,12 @@
     <div flex layout="row" class="myArtists" ng-init="setFirst();">
       <!--List of My Artists-->
       <div flex="20">
-        <md-list>
-        <md-list-item style="background-color:#d3d3d3;" layout="row" layout-align="center">
-            <div flex="80" layout="row" layout-align="center">My Artists</div>
-            <div flex="20" layout="row" layout-align="end">
+            <div class="artist-panel-header">
+                <h3>My Artists</h3>
                 <i class="fa fa-pencil pointer" ng-hide="editing"ng-click="edit()"></i>
                 <i class="fa fa-check-circle pointer" ng-show="editing" ng-click="edit()"></i>
-               <!--<img ng-hide=editing src="https://cdn3.iconfinder.com/data/icons/glypho-free/64/pen-checkbox-128.png" style="height:25px;width:25px;" ng-click="edit()">
-               <img ng-show=editing src="https://cdn4.iconfinder.com/data/icons/basic-ui-elements/700/011_yes-128.png" style="height:20px;width:20px;" ng-click="edit()">-->
             </div>
-        </md-list-item>
-
+        <md-list class="myArtistList">
 
           <md-list-item ng-repeat="artist in myArtists" ng-click="switchArtist(artist);" layout="row">
               <div flex="80" layout="row">
@@ -23,7 +18,6 @@
               </div>
              <div flex="20" layout="row" layout-align="end">
                  <i class="fa fa-trash-o pointer" ng-show="editing" ng-click="deleteArtist($index)"></i>
-               <!--<img src="http://www.clker.com/cliparts/a/x/q/L/G/9/delete-icon-md.png" style="height:15px;width:15px;opacity:0.8;" ng-click="deleteArtist($index)" ng-show=editing>-->
             </div>
           </md-list-item>
         </md-list>
