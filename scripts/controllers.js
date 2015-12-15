@@ -40,8 +40,6 @@ spotifyControllers.controller('navController', function($scope) {
     } else {
       $scope.menuOpen = true;
     }
-
-    console.log($scope.menuOpen);
   }
 });
 
@@ -143,10 +141,67 @@ spotifyControllers.controller('searchBarCtrl',
 
 
 /* NEWSFEED CONTROLLER */
-spotifyControllers.controller('NewsFeedController', function($scope, $http, $mdDialog, localStorageService, userArtistsShared) {
-  console.log('hello');
+spotifyControllers.controller('NewsFeedController', function($scope, $http, $mdDialog, $q, $timeout, localStorageService, userArtistsShared) {
+
+  $scope.news_per_artist = {};
+
+  $scope.formatDate = function(datestring){
+    var monthNames = ["January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+    ];
+
+    var date = new Date(datestring);
+    var month = monthNames[date.getMonth()];
+    var year = date.getFullYear();
+    var day = date.getDate();
+
+    return month + " "+ day + ", " + year;
+
+  }
+
+  $scope.formatText = function(text){
+    text = text.replace(/<span>|<\/span>/g, '');
+    text = text.replace(/&#39;/g, '\'');
+    text = text.replace(/&#34;/g, '\"');
+
+    return text;
+  }
+
+  $scope.nextNews = function() {
+    console.log('next');
+  }
+
+  $scope.prevNews = function() {
+    console.log('prev');
+  }
+
+  // news endpoint
+  $scope.getNews = function(artistName, numResults) {
+    var req = { 'name': artistName, 'api_key': API_KEY, 'format': 'jsonp', 'results':  numResults };
+    var url = 'http://developer.echonest.com/api/v4/artist/news?callback=JSON_CALLBACK&' + serialize(req);
+
+    console.log(url);
+
+    $http.jsonp(url)
+      .then(function(data) { 
+        console.log('success');
+        console.log(data);
+        $scope.news_per_artist[artistName] = data.data.response.news;
+      }, 
+      function(error) {
+        console.log('errorrrrrrr');
+      });
+  }
 
   $scope.feedArtists = userArtistsShared.get();
+
+  var numResults = 5;
+
+  // var news = [];
+
+  for (var i = 0; i < $scope.feedArtists.length; i++) {
+    $scope.getNews($scope.feedArtists[i], numResults);
+  }
 
 });
 

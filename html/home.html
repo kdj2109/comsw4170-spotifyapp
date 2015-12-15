@@ -1,85 +1,32 @@
-<div class="main-feed" ng-controller="NewsFeedController">
+<div class="main-feed" ng-controller="NewsFeedController" ng-cloak>
     <!-- <div id="welcome">
         <h1 id="welcome-message">Welcome to the Spotify News Wiki!</h1>
         <p>Browse your favorite artists.</p>
     </div> -->
 
+    <h1>Latest News</h1>
+    <h5>From Tracked Artists</h5>
+
+    <!-- {{ news_per_artist }} -->
+
+    <div ng-repeat="(artist, value) in news_per_artist">
+      <md-card flex-gt-sm="90" flex-gt-md="80"  ng-repeat="news in value">
+          <md-card-content>
+              <md-list>
+                  <md-item-content>
+                      <h4>{{artist}}</h4>
+                      <h3><a target="_blank" href="{{news.url}}">{{formatText(news.name)}} <i class="fa fa-external-link"></i></a></h3>
+                      <p><i class="fa fa-calendar"></i> {{formatDate(news.date_found)}}</p>
+                      <p>Summary: <blockquote>{{formatText(news.summary)}}</blockquote></p>
+                  </md-item-content>
+              </md-list>
+          </md-card-content>
+      </md-card>
+    </div>
 
     <div>
-        <h1>Latest News</h1>
-        <h5>From Tracked Artists</h5>
-
-        {{ feedArtists }}
-
-        
+        <div class="prev" ng-click="prevNews()"><i class="fa fa-arrow-left"></i> Previous</div>
+        <div class="next" ng-click="nextNews()">Next <i class="fa fa-arrow-right"></i></div>
     </div>
 
-
-   <!--  <div layout="column" class="search" ng-controller="SearchController">
-        <md-content md-theme="default" layout-padding="" layout="row" layout-sm="column">
-            <md-input-container>
-                <label>Search by Artist</label>
-                <input ng-model="form.artist">
-            </md-input-container>
-        </md-content>
-
-        <div class="artist-reviews">
-            <div ng-repeat="review in reviews">
-                <md-card flex-gt-sm="90" flex-gt-md="80">
-                    <md-card-content>
-                        <md-list>
-                            <md-item-content>
-                                <p>Date reviewed: {{review.date_reviewed || "No Date Found" }}</p>
-                                <p>Review Name: <a target="_blank" href="{{review.url}}">{{review.name}}</a></p>
-                                <p>Summary: <blockquote>{{review.summary}}</blockquote></p>
-                                <md-divider hide-sm ng-if="!$last"></md-divider>
-                                <md-divider hide-gt-sm ng-if="!$last"></md-divider>
-                            </md-item-content>
-                        </md-list>
-                    </md-card-content>
-                </md-card>
-            </div>
-        </div>
-
-        <div class="blog-posts">
-            <div ng-repeat="post in blogPosts">
-                <md-card flex-gt-sm="90" flex-gt-md="80">
-                    <md-card-content>
-                        <md-list>
-                            <md-item-content>
-                                <p>Date Posted: {{post.date_posted}}</p>
-                                <p>Blog Post Name: <a target="_blank" href="{{post.url}}">{{post.name}}</a></p>
-                                <p>Summary: <blockquote>{{post.summary}}</blockquote></p>
-                                <md-divider hide-sm ng-if="!$last"></md-divider>
-                                <md-divider hide-gt-sm ng-if="!$last"></md-divider>
-                            </md-item-content>
-                        </md-list>
-                    </md-card-content>
-                </md-card>
-            </div>
-        </div>
-
-        <div class="artist-news">
-            <div ng-repeat="news_item in news">
-                <md-card flex-gt-sm="90" flex-gt-md="80">
-                    <md-card-content>
-                        <md-list>
-                            <md-item-content>
-                                <p>Date Posted: {{news_item.date_posted}}</p>
-                                <p>News Article Title:  <a target="_blank" href="{{news_item.url}}">{{news_item.name}}</a></p>
-                                <p>Summary: <blockquote>{{news_item.summary}}</blockquote></p>
-                                <md-divider hide-sm ng-if="!$last"></md-divider>
-                                <md-divider hide-gt-sm ng-if="!$last"></md-divider>
-                            </md-item-content>
-                        </md-list>
-                    </md-card-content>
-                </md-card>
-            </div>
-        </div>
-
-        <md-button class="md-raised" ng-click='getReviews(form.artist)'> See Artist Reviews </md-button>
-        <md-button class="md-raised" ng-click='getBlogPosts(form.artist)'> Find Blog posts </md-button>
-        <md-button class="md-raised" ng-click='getNews(form.artist)'> Read Artist News </md-button>
-    </div>
- -->
 </div>
