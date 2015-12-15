@@ -256,3 +256,8 @@ a:hover {
 .text-center {
   text-align: center;
 }
+
+.help {
+  line-height: 2;
+  text-align: center;
+}
