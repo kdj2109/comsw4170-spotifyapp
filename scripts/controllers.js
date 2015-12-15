@@ -264,6 +264,10 @@ spotifyControllers.controller('ArtistController', function($scope, $http, $sce, 
   
   $scope.myArtists = userArtistsShared.get();
 
+  $scope.setFirst = function(){
+    if($scope.myArtists[0]!=undefined){ $scope.switchArtist($scope.myArtists[0]); }
+  }
+
   // if (!localStorageService.get('userArtists')) {
   //   $scope.myArtists = ["U2", "Nick Jonas", "The Weeknd", "Drake", "Kendrick Lamar", "Fetty Wap","Beyonce", "Nicki Minaj", "Justin Bieber"];
   //   localStorageService.set('userArtists', $scope.myArtists);
