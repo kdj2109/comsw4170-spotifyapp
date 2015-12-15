@@ -585,8 +585,10 @@ spotifyControllers.controller('artistController', function($scope, $http, $locat
 
                 //create iframe spotify list
                 for(var i=0; i<10;i++){
-                  var id = $scope.songs[i].id + ",";
-                  $scope.trackset = $scope.trackset.concat(id);
+                  if($scope.songs[i]!=undefined){
+                    var id = $scope.songs[i].id + ",";
+                    $scope.trackset = $scope.trackset.concat(id);
+                  }
                 }
 
                 var playlist = "<iframe src='https://embed.spotify.com/?uri=spotify:trackset:Top Hits:"+$scope.trackset+"' frameborder='0' allowtransparency='true'"+
@@ -604,13 +606,17 @@ spotifyControllers.controller('artistController', function($scope, $http, $locat
                 '&format=jsonp&api_key=NGB9ACOOVZV9AOTEZ&id=spotify:artist:'+artistID;
                 $http.jsonp(url).success(function(data){
                   $scope.artistNews = data.response.news;
-                  console.log(data.response);
-                  for (var i=0;i<$scope.artistNews.length;i++){
-                     $scope.artistNews[i].date_found = formatDate( $scope.artistNews[i].date_found);
-                     $scope.artistNews[i].summary = formatText($scope.artistNews[i].summary);
-                     $scope.artistNews[i].name = formatText($scope.artistNews[i].name);
-
-                  }
+                  if(data.response.news[0]!=undefined){
+                      document.getElementById("newsfeed").style.visibility="visible";
+                      console.log(data.response);
+                      for (var i=0;i<$scope.artistNews.length;i++){
+                         $scope.artistNews[i].date_found = formatDate( $scope.artistNews[i].date_found);
+                         $scope.artistNews[i].summary = formatText($scope.artistNews[i].summary);
+                         $scope.artistNews[i].name = formatText($scope.artistNews[i].name);
+                      }
+                    }else{
+                      document.getElementById("newsfeed").style.visibility="hidden";
+                    }
                 });
 
             }).error(function(data){
