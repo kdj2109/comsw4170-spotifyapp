@@ -369,8 +369,13 @@ spotifyControllers.controller('ArtistController', function($scope, $http, $sce, 
   
   $scope.myArtists = userArtistsShared.get();
 
-  $scope.setFirst = function(){
-    if($scope.myArtists[0]!=undefined){ $scope.switchArtist($scope.myArtists[0]);
+  var firstArtist = localStorageService.get('lastArtist');
+
+  $scope.setFirst = function() {
+
+    if (firstArtist) {
+      $scope.switchArtist(firstArtist);
+    } else if($scope.myArtists[0]!=undefined){ $scope.switchArtist($scope.myArtists[0]);
     }else{ 
           document.getElementById("artistPage").style.visibility="hidden";
           document.getElementById("newsfeed").style.visibility="hidden";
@@ -392,6 +397,10 @@ spotifyControllers.controller('ArtistController', function($scope, $http, $sce, 
 
   // reviews endpoint
   $scope.switchArtist = function(artistName) {
+
+
+    // switching so update the localStorage and factory variable
+    localStorageService.set('lastArtist', artistName);
 
     if(artistName=="newsfeed"){
         var frame="<span></span>";
@@ -573,7 +582,8 @@ spotifyControllers.controller('artistController', function($scope, $http, $locat
 
             $scope.artistName = data.artists.items[0].name;
             var artistID = data.artists.items[0].id
-            console.log(artistID);
+            $scope.artistSpotifyUrl = "https://open.spotify.com/artist/"+artistID;
+
 
 
             //get top tracks from artist ID
