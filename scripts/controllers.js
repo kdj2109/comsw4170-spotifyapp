@@ -363,6 +363,7 @@ spotifyControllers.controller('ArtistController', function($scope, $http, $sce, 
   //initial variables
   $scope.songs = [];
   $scope.trackset = "";
+  $scope.errormsg=false;
 
 
   // $scope.myArtists = localStorageService.get('userArtists') || ["U2", "Nick Jonas", "The Weeknd", "Drake", "Kendrick Lamar", "Fetty Wap","Beyonce", "Nicki Minaj", "Justin Bieber"];
@@ -466,15 +467,15 @@ spotifyControllers.controller('ArtistController', function($scope, $http, $sce, 
               if(data.response.news[0]==undefined){
                 document.getElementById("newsfeed").style.visibility="hidden";
                 document.getElementById("artistPage").style.visibility="visible";
-                console.log("here");
+                $scope.errormsg=true;
               }else{
+                $scope.errormsg=false;          
                 for (var i=0;i<$scope.artistNews.length;i++){
                    $scope.artistNews[i].date_found = formatDate($scope.artistNews[i].date_found);
                    $scope.artistNews[i].summary = formatText($scope.artistNews[i].summary);
                    $scope.artistNews[i].name = formatText($scope.artistNews[i].name);   
                    document.getElementById("artistPage").style.visibility="visible";           
-                   document.getElementById("newsfeed").style.visibility="visible";           
-
+                   document.getElementById("newsfeed").style.visibility="visible"; 
                 }
               }
 
