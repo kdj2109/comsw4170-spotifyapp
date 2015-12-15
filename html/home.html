@@ -4,9 +4,6 @@
         <p>Browse your favorite artists.</p>
     </div> -->
 
-    <h1>Latest News</h1>
-    <h5>From Tracked Artists</h5>
-
     <!-- {{ news_per_artist }} -->
 
     <!-- <div ng-repeat="(artist, value) in news_per_artist">
@@ -23,6 +20,17 @@
           </md-card-content>
       </md-card>
     </div> -->
+
+    <div ng-show=!showMoreBtn>
+        <h1>You're not tracking any artists!</h1>
+        <p>Get started on the <md-button class="md-raised"><a class="header-tab" href="#/help">Help</a></md-button> page or start searching
+            for an artist and start tracking!</p>
+    </div>
+
+    <div ng-show=showMoreBtn>
+        <h1>Latest News</h1>
+        <h5>From Tracked Artists</h5>
+    </div>
 
 
     <div ng-repeat="news in allNews | orderBy:myValueFunction:true">
@@ -41,8 +49,7 @@
     </div>
 
     <div class="text-center">
-        <div class="more " ng-click="moreNews()"><i class="fa fa-arrow-down"></i> View More </div>
-        
+        <div class="more " ng-show=showMoreBtn ng-click="moreNews()"><i class="fa fa-arrow-down"></i> View More </div>
     </div>
 
 </div>

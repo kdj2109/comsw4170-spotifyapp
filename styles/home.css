@@ -256,12 +256,14 @@ a:hover {
 .text-center {
   text-align: center;
 }
-
 .message {
+  margin-left: 1em;
   font-weight: 300;
 }
-
+.help-page {
+  margin-left: 4em;
+}
 .help {
   line-height: 2;
-  text-align: center;
+  /*text-align: center;*/
 }

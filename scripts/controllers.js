@@ -208,6 +208,8 @@ spotifyControllers.controller('NewsFeedController', function($scope, $http, $mdD
 
   $scope.allNews = [];
 
+  $scope.showMoreBtn;
+
   $scope.formatDate = function(datestring){
     var monthNames = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
@@ -282,6 +284,13 @@ spotifyControllers.controller('NewsFeedController', function($scope, $http, $mdD
   }
 
   $scope.feedArtists = userArtistsShared.get();
+
+
+  if ($scope.feedArtists.length > 0) {
+    $scope.showMoreBtn = true;
+  } else {
+    $scope.showMoreBtn = false;
+  }
 
   var numResults = 5;
 

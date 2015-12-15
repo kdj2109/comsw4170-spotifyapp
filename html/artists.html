@@ -1,6 +1,11 @@
 
 <div layout="column" ng-controller="ArtistController" class="artistsPage">
-    <h2 class="message" ng-show="no_artists">You are not currently tracking any artists! Please use the search bar above to begin tracking your favorite artists.</h2>
+
+    <div  class="message" ng-show="no_artists">
+      <h1>You're not tracking any artists!</h1>
+          <p>Get started on the <md-button class="md-raised"><a class="header-tab" href="#/help">Help</a></md-button> page or start searching
+            for an artist and start tracking!</p>
+    </div>
 
 
     <div flex layout="row" class="myArtists" ng-init="setFirst();" ng-hide="no_artists">
