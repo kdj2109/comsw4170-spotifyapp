@@ -104,7 +104,21 @@
               <md-tab label="Reviews">
                 <md-content class="md-padding">
                   <h1 class="md-display-2">Reviews</h1>
-                  <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
+                  <div ng-repeat="review in artistReviews">
+                      <md-card flex-gt-sm="90" flex-gt-md="80">
+                          <md-card-content>
+                              <md-list>
+                                  <md-item-content>
+                                      <h3><a target="_blank" href="{{news.url}}">{{review.name}} <i class="fa fa-external-link"></i></a></h3>
+                                      <p>Date Posted: {{review.date_found}}</p>
+                                      <p>Summary: <blockquote>{{review.summary}}</blockquote></p>
+                                      <md-divider hide-sm ng-if="!$last"></md-divider>
+                                      <md-divider hide-gt-sm ng-if="!$last"></md-divider>
+                                  </md-item-content>
+                              </md-list> 
+                          </md-card-content>
+                      </md-card>
+                  </div>
                 </md-content>
               </md-tab>
               <md-tab label="Play Artist">
