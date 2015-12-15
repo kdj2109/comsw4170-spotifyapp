@@ -169,3 +169,8 @@ blockquote p {
 blockquote { 
   overflow:hidden;
 }
+
+a:visited{
+  color:blue;
+  text-decoration:underline;
+}
