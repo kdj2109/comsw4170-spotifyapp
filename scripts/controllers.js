@@ -420,6 +420,7 @@ spotifyControllers.controller('ArtistController', function($scope, $http, $sce, 
                 }
               }
 
+              //get blog posts 
               url = 'http://developer.echonest.com/api/v4/artist/blogs?callback=JSON_CALLBACK'+
               '&format=jsonp&api_key=NGB9ACOOVZV9AOTEZ&id=spotify:artist:'+artistID;
               $http.jsonp(url).success(function(data){
@@ -429,6 +430,7 @@ spotifyControllers.controller('ArtistController', function($scope, $http, $sce, 
                   $scope.artistBlogs[i].summary = formatText($scope.artistBlogs[i].summary);
                   $scope.artistBlogs[i].name = formatText($scope.artistBlogs[i].name); 
                 }
+                  //get artist reviews 
                   url = 'http://developer.echonest.com/api/v4/artist/reviews?callback=JSON_CALLBACK'+
                   '&format=jsonp&api_key=NGB9ACOOVZV9AOTEZ&id=spotify:artist:'+artistID;
                   $http.jsonp(url).success(function(data){
@@ -583,6 +585,36 @@ spotifyControllers.controller('artistController', function($scope, $http, $locat
                     $scope.previous_new_url = null;
                     hide_previous_news_arrow();
                   }
+
+
+                      //get blog posts 
+                  url = 'http://developer.echonest.com/api/v4/artist/blogs?callback=JSON_CALLBACK'+
+                  '&format=jsonp&api_key=NGB9ACOOVZV9AOTEZ&id=spotify:artist:'+artistID;
+                  $http.jsonp(url).success(function(data){
+                    $scope.artistBlogs = data.response.blogs;
+                    for(var i=0; i<$scope.artistBlogs.length;i++){
+                      $scope.artistBlogs[i].date_posted = formatDate($scope.artistBlogs[i].date_posted);
+                      $scope.artistBlogs[i].summary = formatText($scope.artistBlogs[i].summary);
+                      $scope.artistBlogs[i].name = formatText($scope.artistBlogs[i].name); 
+                    }
+                      //get artist reviews 
+                      url = 'http://developer.echonest.com/api/v4/artist/reviews?callback=JSON_CALLBACK'+
+                      '&format=jsonp&api_key=NGB9ACOOVZV9AOTEZ&id=spotify:artist:'+artistID;
+                      $http.jsonp(url).success(function(data){
+                      $scope.artistReviews = data.response.reviews;
+                        for(var i=0; i<$scope.artistReviews.length;i++){
+                          $scope.artistReviews[i].date_found = formatDate($scope.artistReviews[i].date_found);
+                          $scope.artistReviews[i].summary = formatText($scope.artistReviews[i].summary);
+                          $scope.artistReviews[i].name = formatText($scope.artistReviews[i].name); 
+                        }
+                      }).error(function(data){
+                        console.log("no reviews");
+                      })
+                  }).error(function(data){
+                      console.log("no blog posts");
+                  })
+
+                  
                 });
 
             }).error(function(data){
