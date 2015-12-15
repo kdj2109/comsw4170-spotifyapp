@@ -504,7 +504,7 @@ spotifyControllers.controller('ArtistController', function($scope, $http, $sce, 
                 $scope.trackset = $scope.trackset.concat(id);
               }
             } 
-            var playlist = "<iframe src='https://embed.spotify.com/?uri=spotify:trackset:PREFEREDTITLE:"+$scope.trackset+"' frameborder='0' allowtransparency='true'"+
+            var playlist = "<iframe src='https://embed.spotify.com/?uri=spotify:trackset:Top Hits:"+$scope.trackset+"' frameborder='0' allowtransparency='true'"+
             "height='600px' width='460px'></iframe>";
             $scope.playButton = $sce.trustAsHtml(playlist);
             var frame="<iframe src='https://embed.spotify.com/follow/1/?uri=spotify:artist:"+artistID+
