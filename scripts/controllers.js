@@ -380,8 +380,8 @@ $scope.edit = function(){
     $scope.editing=true;
   }else{
     $scope.editing=false;
+    $scope.setFirst();
   }
-  $scope.setFirst();
 
 }
 
