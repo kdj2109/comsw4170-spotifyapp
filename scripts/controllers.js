@@ -608,6 +608,7 @@ spotifyControllers.controller('artistController', function($scope, $http, $locat
                   $scope.artistNews = data.response.news;
                   if(data.response.news[0]!=undefined){
                       document.getElementById("newsfeed").style.visibility="visible";
+                      document.getElementById("errormsg").style.visibility="hidden";
                       console.log(data.response);
                       for (var i=0;i<$scope.artistNews.length;i++){
                          $scope.artistNews[i].date_found = formatDate( $scope.artistNews[i].date_found);
@@ -616,6 +617,7 @@ spotifyControllers.controller('artistController', function($scope, $http, $locat
                       }
                     }else{
                       document.getElementById("newsfeed").style.visibility="hidden";
+                      document.getElementById("errormsg").style.visibility="visible";
                     }
                 });
 
