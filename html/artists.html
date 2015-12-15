@@ -33,7 +33,9 @@
             <div layout-wrap>
               <a href="{{}}" target="_blank"><img src='{{artistPicture}}' class="artist-image" ng-cloak></img></a>
             </div>
-            <div ng-cloak><h4>{{ artistName }}</h4></div>
+            <div ng-cloak class="text-center">
+              <h1>{{ artistName }}</h1>
+            </div>
           </div>
         </div>
 
@@ -47,7 +49,47 @@
 
     <div flex>
       <div class="newsfeed">
-            <div ng-repeat="news in artistNews">
+            <div ng-cloak="" class="tabsdemoDynamicHeight">
+          <md-content>
+            <md-tabs md-dynamic-height="" md-border-bottom="">
+              <md-tab label="News">
+                <md-content class="md-padding">
+                  <h1 class="md-display-2">News</h1>
+                    <div ng-repeat="news in artistNews">
+                      <md-card flex-gt-sm="90" flex-gt-md="80">
+                          <md-card-content>
+                              <md-list>
+                                  <md-item-content>
+                                      <h3><a target="_blank" href="{{news.url}}">{{news.name}} <i class="fa fa-external-link"></i></a></h3>
+                                      <p>Date Posted: {{news.date_found}}</p>
+                                      <p>Summary: <blockquote>{{news.summary}}</blockquote></p>
+                                      <md-divider hide-sm ng-if="!$last"></md-divider>
+                                      <md-divider hide-gt-sm ng-if="!$last"></md-divider>
+                                  </md-item-content>
+                              </md-list>
+                          </md-card-content>
+                      </md-card>
+                  </div>
+                </md-content>
+              </md-tab>
+              <md-tab label="Blog Posts">
+                <md-content class="md-padding">
+                  <h1 class="md-display-2">Blog Posts</h1>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi. Aliquam erat volutpat. Nam placerat, tortor in ultrices porttitor, orci enim rutrum enim, vel tempor sapien arcu a tellus. Vivamus convallis sodales ante varius gravida. Curabitur a purus vel augue ultrices ultricies id a nisl. Nullam malesuada consequat diam, a facilisis tortor volutpat et. Sed urna dolor, aliquet vitae posuere vulputate, euismod ac lorem. Sed felis risus, pulvinar at interdum quis, vehicula sed odio. Phasellus in enim venenatis, iaculis tortor eu, bibendum ante. Donec ac tellus dictum neque volutpat blandit. Praesent efficitur faucibus risus, ac auctor purus porttitor vitae. Phasellus ornare dui nec orci posuere, nec luctus mauris semper.</p>
+                  <p>Morbi viverra, ante vel aliquet tincidunt, leo dolor pharetra quam, at semper massa orci nec magna. Donec posuere nec sapien sed laoreet. Etiam cursus nunc in condimentum facilisis. Etiam in tempor tortor. Vivamus faucibus egestas enim, at convallis diam pulvinar vel. Cras ac orci eget nisi maximus cursus. Nunc urna libero, viverra sit amet nisl at, hendrerit tempor turpis. Maecenas facilisis convallis mi vel tempor. Nullam vitae nunc leo. Cras sed nisl consectetur, rhoncus sapien sit amet, tempus sapien.</p>
+                  <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
+                </md-content>
+              </md-tab>
+              <md-tab label="Reviews">
+                <md-content class="md-padding">
+                  <h1 class="md-display-2">Reviews</h1>
+                  <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
+                </md-content>
+              </md-tab>
+            </md-tabs>
+          </md-content>
+        </div>
+            <!-- <div ng-repeat="news in artistNews">
                 <md-card flex-gt-sm="90" flex-gt-md="80">
                     <md-card-content>
                         <md-list>
@@ -61,10 +103,10 @@
                         </md-list>
                     </md-card-content>
                 </md-card>
-            </div>
-        </div>
+            </div> -->
+        </div> <!-- end newsfeed -->
 
-      </div>
+      </div> <!-- end flex -->
     </div>
   </div>
 </div>

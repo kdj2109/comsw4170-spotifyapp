@@ -60,7 +60,7 @@ spotifyControllers.controller('searchBarCtrl',
         // list of artists user is already tracking
         // $scope.userArtists = localStorageService.get('userArtists') || [];
         userArtistsShared.set(localStorageService.get('userArtists') || []);
-        $scope.userArtists = userArtistsShared.get() 
+        $scope.userArtists = userArtistsShared.get();
 
         // Base url to query for artists
         var base_url = 'https://api.spotify.com/v1/search?type=artist&q='
@@ -141,16 +141,12 @@ spotifyControllers.controller('searchBarCtrl',
     }
 );
 
-// my artists page
-spotifyControllers.controller('myArtistsController', function($scope, $http, $mdDialog, localStorageService) { 
-
-});
 
 /* NEWSFEED CONTROLLER */
-spotifyControllers.controller('NewsFeedController', function($scope, $http, $mdDialog, localStorageService) {
+spotifyControllers.controller('NewsFeedController', function($scope, $http, $mdDialog, localStorageService, userArtistsShared) {
   console.log('hello');
 
-
+  $scope.feedArtists = userArtistsShared.get();
 
 });
 
