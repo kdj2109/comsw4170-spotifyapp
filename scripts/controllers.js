@@ -266,7 +266,7 @@ spotifyControllers.controller('ArtistController', function($scope, $http, $sce, 
 
   $scope.setFirst = function(){
     if($scope.myArtists[0]!=undefined){ $scope.switchArtist($scope.myArtists[0]);}
-    else{document.getElementById("newsfeed").style.visibility="hidden";}
+    else{document.getElementById("artistPage").style.visibility="hidden";}
   }
 
   // if (!localStorageService.get('userArtists')) {
@@ -335,11 +335,15 @@ spotifyControllers.controller('ArtistController', function($scope, $http, $sce, 
             '&format=jsonp&api_key=NGB9ACOOVZV9AOTEZ&id=spotify:artist:'+artistID;
             $http.jsonp(url).success(function(data){
               $scope.artistNews = data.response.news;
-              for (var i=0;i<$scope.artistNews.length;i++){
-                 $scope.artistNews[i].date_found = formatDate( $scope.artistNews[i].date_found);  
-                 $scope.artistNews[i].summary = formatText($scope.artistNews[i].summary);
-                 $scope.artistNews[i].name = formatText($scope.artistNews[i].name);   
-                 document.getElementById("newsfeed").style.visibility="visible";           
+              if(data.response.news[0]==undefined){
+                document.getElementById("newsfeed").style.visibility="hidden";
+              }else{
+                for (var i=0;i<$scope.artistNews.length;i++){
+                   $scope.artistNews[i].date_found = formatDate( $scope.artistNews[i].date_found);  
+                   $scope.artistNews[i].summary = formatText($scope.artistNews[i].summary);
+                   $scope.artistNews[i].name = formatText($scope.artistNews[i].name);   
+                   document.getElementById("artistPage").style.visibility="visible";           
+                }
               }
             })
 
