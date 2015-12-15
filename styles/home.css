@@ -1,4 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:300);
+input {
+  transition: all 0.5s ease;
+}
 .nav-buttons-mobile {
   display: none;
 }
@@ -29,7 +32,7 @@
   }
 }
 body {
-  color: #00d95a;
+  color: #23CF5F;
   font-weight: 300;
 }
 .spotify-app {
@@ -128,8 +131,35 @@ blockquote p {
   margin-right: 2px;
 }
 .main-feed {
-  /*max-width: 785px;*/
+  transition: all 0.5s ease;
   margin: 0 auto;
+  margin-left: 4em;
+}
+.main-feed .prev {
+  display: inline-block;
+  padding: 1em;
+  background: #eeeeee;
+  border-radius: 5px;
+}
+.main-feed .prev:hover {
+  cursor: pointer;
+}
+.main-feed .next {
+  display: inline-block;
+  float: right;
+  padding: 1em;
+  background: #eeeeee;
+  border-radius: 5px;
+}
+.main-feed .next:hover {
+  cursor: pointer;
+}
+.main-feed a {
+  transition: all 0.5s ease;
+  color: #23CF5F;
+}
+.main-feed a:hover {
+  color: #127334;
 }
 @media (max-width: 689px) {
   .main-feed {
@@ -183,4 +213,13 @@ div.widget {
   overflow-y: scroll;
   overflow-x: hidden;
 
+}
+
+blockquote { 
+  overflow:hidden;
+}
+
+a:visited{
+  color:blue;
+  text-decoration:underline;
 }

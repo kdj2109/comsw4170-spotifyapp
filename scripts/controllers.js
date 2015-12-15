@@ -40,8 +40,6 @@ spotifyControllers.controller('navController', function($scope) {
     } else {
       $scope.menuOpen = true;
     }
-
-    console.log($scope.menuOpen);
   }
 });
 
@@ -147,10 +145,67 @@ spotifyControllers.controller('searchBarCtrl',
 
 
 /* NEWSFEED CONTROLLER */
-spotifyControllers.controller('NewsFeedController', function($scope, $http, $mdDialog, localStorageService, userArtistsShared) {
-  console.log('hello');
+spotifyControllers.controller('NewsFeedController', function($scope, $http, $mdDialog, $q, $timeout, localStorageService, userArtistsShared) {
+
+  $scope.news_per_artist = {};
+
+  $scope.formatDate = function(datestring){
+    var monthNames = ["January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+    ];
+
+    var date = new Date(datestring);
+    var month = monthNames[date.getMonth()];
+    var year = date.getFullYear();
+    var day = date.getDate();
+
+    return month + " "+ day + ", " + year;
+
+  }
+
+  $scope.formatText = function(text){
+    text = text.replace(/<span>|<\/span>/g, '');
+    text = text.replace(/&#39;/g, '\'');
+    text = text.replace(/&#34;/g, '\"');
+
+    return text;
+  }
+
+  $scope.nextNews = function() {
+    console.log('next');
+  }
+
+  $scope.prevNews = function() {
+    console.log('prev');
+  }
+
+  // news endpoint
+  $scope.getNews = function(artistName, numResults) {
+    var req = { 'name': artistName, 'api_key': API_KEY, 'format': 'jsonp', 'results':  numResults };
+    var url = 'http://developer.echonest.com/api/v4/artist/news?callback=JSON_CALLBACK&' + serialize(req);
+
+    console.log(url);
+
+    $http.jsonp(url)
+      .then(function(data) { 
+        console.log('success');
+        console.log(data);
+        $scope.news_per_artist[artistName] = data.data.response.news;
+      }, 
+      function(error) {
+        console.log('errorrrrrrr');
+      });
+  }
 
   $scope.feedArtists = userArtistsShared.get();
+
+  var numResults = 5;
+
+  // var news = [];
+
+  for (var i = 0; i < $scope.feedArtists.length; i++) {
+    $scope.getNews($scope.feedArtists[i], numResults);
+  }
 
 });
 
@@ -268,6 +323,14 @@ spotifyControllers.controller('ArtistController', function($scope, $http, $sce, 
   
   $scope.myArtists = userArtistsShared.get();
 
+  $scope.setFirst = function(){
+    if($scope.myArtists[0]!=undefined){ $scope.switchArtist($scope.myArtists[0]);
+    }else{ 
+          document.getElementById("artistPage").style.visibility="hidden";
+          document.getElementById("newsfeed").style.visibility="hidden";
+        }
+  }
+
   // if (!localStorageService.get('userArtists')) {
   //   $scope.myArtists = ["U2", "Nick Jonas", "The Weeknd", "Drake", "Kendrick Lamar", "Fetty Wap","Beyonce", "Nicki Minaj", "Justin Bieber"];
   //   localStorageService.set('userArtists', $scope.myArtists);
@@ -297,6 +360,9 @@ spotifyControllers.controller('ArtistController', function($scope, $http, $sce, 
         $scope.newsfeed=true;
         $scope.artistData = data.artists;
         $scope.artistPicture;
+        $scope.artistNews;
+        $scope.artistBlogs;
+        $scope.artistReviews;
 
         // check if artist has any pictures, and if not, assign a no_img url
         if (data.artists.items[0].images.length > 0) {
@@ -318,10 +384,15 @@ spotifyControllers.controller('ArtistController', function($scope, $http, $sce, 
             $scope.songs = data.tracks;
             
             //create iframe spotify list
-            for(var i=0; i<5;i++){
-              var id = $scope.songs[i].id + ",";
-              $scope.trackset = $scope.trackset.concat(id);
+            for(var i=0; i<10;i++){
+              if($scope.songs[i]!=undefined){
+                var id = $scope.songs[i].id + ",";
+                $scope.trackset = $scope.trackset.concat(id);
+              }
             } 
+            var playlist = "<iframe src='https://embed.spotify.com/?uri=spotify:trackset:PREFEREDTITLE:"+$scope.trackset+"' frameborder='0' allowtransparency='true'"+
+            "height='600px' width='460px'></iframe>";
+            $scope.playButton = $sce.trustAsHtml(playlist);
             var frame="<iframe src='https://embed.spotify.com/follow/1/?uri=spotify:artist:"+artistID+
             "&size=basic&theme=light' width='200' height='25' scrolling='no' frameborder='0' style='border:none; overflow:hidden;'' allowtransparency='true'></iframe>"
             $scope.iframe = $sce.trustAsHtml(frame);
@@ -334,12 +405,45 @@ spotifyControllers.controller('ArtistController', function($scope, $http, $sce, 
             '&format=jsonp&api_key=NGB9ACOOVZV9AOTEZ&id=spotify:artist:'+artistID;
             $http.jsonp(url).success(function(data){
               $scope.artistNews = data.response.news;
-              for (var i=0;i<$scope.artistNews.length;i++){
-                 $scope.artistNews[i].date_found = formatDate( $scope.artistNews[i].date_found);  
-                 $scope.artistNews[i].summary = formatText($scope.artistNews[i].summary);
-                 $scope.artistNews[i].name = formatText($scope.artistNews[i].name);              
-                
+              if(data.response.news[0]==undefined){
+                document.getElementById("newsfeed").style.visibility="hidden";
+                document.getElementById("artistPage").style.visibility="visible";
+                console.log("here");
+              }else{
+                for (var i=0;i<$scope.artistNews.length;i++){
+                   $scope.artistNews[i].date_found = formatDate($scope.artistNews[i].date_found);
+                   $scope.artistNews[i].summary = formatText($scope.artistNews[i].summary);
+                   $scope.artistNews[i].name = formatText($scope.artistNews[i].name);   
+                   document.getElementById("artistPage").style.visibility="visible";           
+                   document.getElementById("newsfeed").style.visibility="visible";           
+
+                }
               }
+
+              url = 'http://developer.echonest.com/api/v4/artist/blogs?callback=JSON_CALLBACK'+
+              '&format=jsonp&api_key=NGB9ACOOVZV9AOTEZ&id=spotify:artist:'+artistID;
+              $http.jsonp(url).success(function(data){
+                $scope.artistBlogs = data.response.blogs;
+                for(var i=0; i<$scope.artistBlogs.length;i++){
+                  $scope.artistBlogs[i].date_posted = formatDate($scope.artistBlogs[i].date_posted);
+                  $scope.artistBlogs[i].summary = formatText($scope.artistBlogs[i].summary);
+                  $scope.artistBlogs[i].name = formatText($scope.artistBlogs[i].name); 
+                }
+                  url = 'http://developer.echonest.com/api/v4/artist/reviews?callback=JSON_CALLBACK'+
+                  '&format=jsonp&api_key=NGB9ACOOVZV9AOTEZ&id=spotify:artist:'+artistID;
+                  $http.jsonp(url).success(function(data){
+                  $scope.artistReviews = data.response.reviews;
+                    for(var i=0; i<$scope.artistReviews.length;i++){
+                      $scope.artistReviews[i].date_found = formatDate($scope.artistReviews[i].date_found);
+                      $scope.artistReviews[i].summary = formatText($scope.artistReviews[i].summary);
+                      $scope.artistReviews[i].name = formatText($scope.artistReviews[i].name); 
+                    }
+                  }).error(function(data){
+                    console.log("no reviews");
+                  })
+              }).error(function(data){
+                  console.log("no blog posts");
+              })
             })
 
         }).error(function(data){
@@ -356,7 +460,6 @@ var formatDate = function(datestring){
   var monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
   ];
-
   var date = new Date(datestring);
   var month = monthNames[date.getMonth()];
   var year = date.getFullYear();
@@ -380,7 +483,9 @@ $scope.edit = function(){
     $scope.editing=true;
   }else{
     $scope.editing=false;
+    $scope.setFirst();
   }
+
 }
 
 
@@ -388,7 +493,7 @@ $scope.deleteArtist = function(i){
   $scope.myArtists.splice(i,1);
   localStorageService.set('userArtists', $scope.myArtists);
   userArtistsShared.set($scope.myArtists);
-
+  
 }
 
 });
