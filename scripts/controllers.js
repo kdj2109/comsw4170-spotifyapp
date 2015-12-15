@@ -428,6 +428,7 @@ spotifyControllers.controller('ArtistController', function($scope, $http, $sce, 
                 }
               }
 
+              //get blog posts 
               url = 'http://developer.echonest.com/api/v4/artist/blogs?callback=JSON_CALLBACK'+
               '&format=jsonp&api_key=NGB9ACOOVZV9AOTEZ&id=spotify:artist:'+artistID;
               $http.jsonp(url).success(function(data){
@@ -437,6 +438,7 @@ spotifyControllers.controller('ArtistController', function($scope, $http, $sce, 
                   $scope.artistBlogs[i].summary = formatText($scope.artistBlogs[i].summary);
                   $scope.artistBlogs[i].name = formatText($scope.artistBlogs[i].name); 
                 }
+                  //get artist reviews 
                   url = 'http://developer.echonest.com/api/v4/artist/reviews?callback=JSON_CALLBACK'+
                   '&format=jsonp&api_key=NGB9ACOOVZV9AOTEZ&id=spotify:artist:'+artistID;
                   $http.jsonp(url).success(function(data){
@@ -545,10 +547,14 @@ spotifyControllers.controller('artistController', function($scope, $http, $locat
                 $scope.songs = data.tracks;
 
                 //create iframe spotify list
-                for(var i=0; i<5;i++){
+                for(var i=0; i<10;i++){
                   var id = $scope.songs[i].id + ",";
                   $scope.trackset = $scope.trackset.concat(id);
                 }
+
+                var playlist = "<iframe src='https://embed.spotify.com/?uri=spotify:trackset:Top Hits:"+$scope.trackset+"' frameborder='0' allowtransparency='true'"+
+                "height='600px' width='460px'></iframe>";
+                $scope.playButton = $sce.trustAsHtml(playlist);
                 var frame="<iframe src='https://embed.spotify.com/follow/1/?uri=spotify:artist:"+artistID+
                 "&size=basic&theme=light' width='200' height='25' scrolling='no' frameborder='0' style='border:none; overflow:hidden;'' allowtransparency='true'></iframe>"
                 $scope.iframe = $sce.trustAsHtml(frame);
@@ -561,6 +567,7 @@ spotifyControllers.controller('artistController', function($scope, $http, $locat
                 '&format=jsonp&api_key=NGB9ACOOVZV9AOTEZ&id=spotify:artist:'+artistID;
                 $http.jsonp(url).success(function(data){
                   $scope.artistNews = data.response.news;
+                  console.log(data.response);
                   for (var i=0;i<$scope.artistNews.length;i++){
                      $scope.artistNews[i].date_found = formatDate( $scope.artistNews[i].date_found);
                      $scope.artistNews[i].summary = formatText($scope.artistNews[i].summary);
