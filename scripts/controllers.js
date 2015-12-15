@@ -322,10 +322,13 @@ spotifyControllers.controller('ArtistController', function($scope, $http, $sce, 
             $scope.songs = data.tracks;
             
             //create iframe spotify list
-            for(var i=0; i<5;i++){
+            for(var i=0; i<10;i++){
               var id = $scope.songs[i].id + ",";
               $scope.trackset = $scope.trackset.concat(id);
             } 
+            var playlist = "<iframe src='https://embed.spotify.com/?uri=spotify:trackset:PREFEREDTITLE:"+$scope.trackset+"' frameborder='0' allowtransparency='true'"+
+            "height='600px' width='460px'></iframe>";
+            $scope.playButton = $sce.trustAsHtml(playlist);
             var frame="<iframe src='https://embed.spotify.com/follow/1/?uri=spotify:artist:"+artistID+
             "&size=basic&theme=light' width='200' height='25' scrolling='no' frameborder='0' style='border:none; overflow:hidden;'' allowtransparency='true'></iframe>"
             $scope.iframe = $sce.trustAsHtml(frame);
