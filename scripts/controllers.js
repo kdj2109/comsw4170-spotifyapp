@@ -47,8 +47,8 @@ spotifyControllers.controller('navController', function($scope) {
 spotifyControllers.controller('searchBarCtrl',
     function($scope, $http, $timeout, $mdDialog, localStorageService, userArtistsShared) {
         $scope.display_artist_name = function(artist_name) {
-            if (artist_name.length > 25) {
-                return artist_name.slice(0, 25) + '...';
+            if (artist_name.length > 20) {
+                return artist_name.slice(0, 20) + '...';
             }
 
             return artist_name;
