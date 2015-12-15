@@ -301,6 +301,9 @@ spotifyControllers.controller('ArtistController', function($scope, $http, $sce, 
         $scope.newsfeed=true;
         $scope.artistData = data.artists;
         $scope.artistPicture;
+        $scope.artistNews;
+        $scope.artistBlogs;
+        $scope.artistReviews;
 
         // check if artist has any pictures, and if not, assign a no_img url
         if (data.artists.items[0].images.length > 0) {
@@ -349,7 +352,7 @@ spotifyControllers.controller('ArtistController', function($scope, $http, $sce, 
                 console.log("here");
               }else{
                 for (var i=0;i<$scope.artistNews.length;i++){
-                   $scope.artistNews[i].date_found = formatDate( $scope.artistNews[i].date_found);  
+                   $scope.artistNews[i].date_found = formatDate($scope.artistNews[i].date_found);
                    $scope.artistNews[i].summary = formatText($scope.artistNews[i].summary);
                    $scope.artistNews[i].name = formatText($scope.artistNews[i].name);   
                    document.getElementById("artistPage").style.visibility="visible";           
@@ -357,6 +360,26 @@ spotifyControllers.controller('ArtistController', function($scope, $http, $sce, 
 
                 }
               }
+
+              url = 'http://developer.echonest.com/api/v4/artist/blogs?callback=JSON_CALLBACK'+
+              '&format=jsonp&api_key=NGB9ACOOVZV9AOTEZ&id=spotify:artist:'+artistID;
+              $http.jsonp(url).success(function(data){
+                $scope.artistBlogs = data.response.blogs;
+                for(var i=0; i<$scope.artistBlogs.length;i++){
+                  $scope.artistBlogs[i].date_posted = formatDate($scope.artistBlogs[i].date_posted);
+                  $scope.artistBlogs[i].summary = formatText($scope.artistBlogs[i].summary);
+                  $scope.artistBlogs[i].name = formatText($scope.artistBlogs[i].name); 
+                }
+              }).error(function(data){
+                  console.log("no blog posts");
+              })
+
+
+
+
+
+
+
             })
 
         }).error(function(data){
@@ -373,7 +396,6 @@ var formatDate = function(datestring){
   var monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
   ];
-
   var date = new Date(datestring);
   var month = monthNames[date.getMonth()];
   var year = date.getFullYear();
