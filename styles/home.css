@@ -205,7 +205,6 @@ blockquote p {
   text-align: center;
 }
 a:visited {
-  color: blue;
   text-decoration: underline;
 }
 .artist-panel-header {
@@ -232,4 +231,14 @@ a:visited {
 }
 .pointer {
   cursor: pointer;
+}
+.artist-nav {
+  margin-right: 2em;
+}
+a {
+  transition: all 0.5s ease;
+  color: #23CF5F;
+}
+a:hover {
+  color: #127334;
 }
