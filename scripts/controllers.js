@@ -573,7 +573,8 @@ spotifyControllers.controller('artistController', function($scope, $http, $locat
 
             $scope.artistName = data.artists.items[0].name;
             var artistID = data.artists.items[0].id
-            console.log(artistID);
+            $scope.artistSpotifyUrl = "https://open.spotify.com/artist/"+artistID;
+
 
 
             //get top tracks from artist ID

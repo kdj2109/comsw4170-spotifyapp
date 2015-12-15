@@ -30,7 +30,7 @@
           <div class="artistHeader">
             <div layout-wrap>
               <br><br><br>
-              <a href="{{}}" target="_blank"><img src='{{artistPicture}}' class="artist-image" ng-cloak></img></a>
+              <img src='{{artistPicture}}' class="artist-image" ng-cloak></img>
             </div>
             <div ng-cloak class="text-center">
               <h1>{{ artistName }}</h1>
@@ -77,7 +77,7 @@
                           <md-card-content>
                               <md-list>
                                   <md-item-content>
-                                      <h3><a target="_blank" href="{{news.url}}">{{blog.name}} <i class="fa fa-external-link"></i></a></h3>
+                                      <h3><a target="_blank" href="{{blog.url}}">{{blog.name}} <i class="fa fa-external-link"></i></a></h3>
                                       <p>Date Posted: {{blog.date_posted}}</p>
                                       <p>Summary: <blockquote>{{blog.summary}}</blockquote></p>
                                       <md-divider hide-sm ng-if="!$last"></md-divider>
@@ -97,7 +97,7 @@
                           <md-card-content>
                               <md-list>
                                   <md-item-content>
-                                      <h3><a target="_blank" href="{{news.url}}">{{review.name}} <i class="fa fa-external-link"></i></a></h3>
+                                      <h3><a target="_blank" href="{{review.url}}">{{review.name}} <i class="fa fa-external-link"></i></a></h3>
                                       <p>Date Posted: {{review.date_found}}</p>
                                       <p>Summary: <blockquote>{{review.summary}}</blockquote></p>
                                       <md-divider hide-sm ng-if="!$last"></md-divider>
