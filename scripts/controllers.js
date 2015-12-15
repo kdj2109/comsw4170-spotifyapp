@@ -45,7 +45,7 @@ spotifyControllers.controller('navController', function($scope) {
 
 /* SEARCH BAR CONTROLLER */
 spotifyControllers.controller('searchBarCtrl',
-    function($scope, $http, $timeout, $mdDialog, localStorageService, userArtistsShared) {
+    function($scope, $http, $timeout, $mdDialog, localStorageService, userArtistsShared, $rootScope, $route) {
         $scope.display_artist_name = function(artist_name) {
             if (artist_name.length > 20) {
                 return artist_name.slice(0, 20) + '...';
@@ -114,10 +114,13 @@ spotifyControllers.controller('searchBarCtrl',
           }
 
           $scope.userArtists.push(artistName);
+          $rootScope.no_artists = false;
           userArtistsShared.set($scope.userArtists);
           localStorageService.set('userArtists', $scope.userArtists);
           $scope.show_artist_list = false;
           showSuccess(artistName);
+
+          $route.reload();
 
         };
 
@@ -142,6 +145,14 @@ spotifyControllers.controller('searchBarCtrl',
           } else {
             console.log('this should not happen');
           }
+
+          if ($scope.userArtists.length == 0) {
+            $rootScope.no_artists = true;
+          }
+
+          $scope.show_artist_list = false;
+
+          $route.reload();
            
          };
 
@@ -387,17 +398,23 @@ spotifyControllers.controller('SearchController', function($scope, $http, $mdDia
 
 
 /* ARTIST CONTROLLER */
-spotifyControllers.controller('ArtistController', function($scope, $http, $sce, localStorageService, userArtistsShared) {
+spotifyControllers.controller('ArtistController', function($scope, $http, $sce, localStorageService, userArtistsShared, $rootScope) {
 
   //initial variables
   $scope.songs = [];
   $scope.trackset = "";
   $scope.errormsg=false;
 
+  $rootScope.no_artists = true;
+
 
   // $scope.myArtists = localStorageService.get('userArtists') || ["U2", "Nick Jonas", "The Weeknd", "Drake", "Kendrick Lamar", "Fetty Wap","Beyonce", "Nicki Minaj", "Justin Bieber"];
   
   $scope.myArtists = userArtistsShared.get();
+
+  if ($scope.myArtists.length > 0) {
+    $rootScope.no_artists = false;
+  }
 
   var firstArtist = localStorageService.get('lastArtist');
 
@@ -583,13 +600,16 @@ $scope.deleteArtist = function(i){
   $scope.myArtists.splice(i,1);
   localStorageService.set('userArtists', $scope.myArtists);
   userArtistsShared.set($scope.myArtists);
+  if ($scope.myArtists.length == 0) {
+    $rootScope.no_artists = true;
+  }
   
 }
 
 });
 
 
-spotifyControllers.controller('artistController', function($scope, $http, $location, $sce, $mdDialog, localStorageService, userArtistsShared) {
+spotifyControllers.controller('artistController', function($scope, $http, $location, $sce, $mdDialog, localStorageService, userArtistsShared, $rootScope) {
     var showArtistPage = function(artistName) {
       $scope.errormsg=false;
 
@@ -778,6 +798,7 @@ spotifyControllers.controller('artistController', function($scope, $http, $locat
        userArtistsShared.set($scope.userArtists);
        localStorageService.set('userArtists', $scope.userArtists);
        $scope.show_artist_list = false;
+       $rootScope.no_artists = false;
        showSuccess(artistName);
 
      };
@@ -800,6 +821,10 @@ spotifyControllers.controller('artistController', function($scope, $http, $locat
         localStorageService.set('userArtists', $scope.userArtists);
         showRemoval(artistName);
         $scope.show_artist_list = false;
+      }
+
+      if ($scope.userArtists.length == 0) {
+        $rootScope.no_artists = true;
       }
        
      };

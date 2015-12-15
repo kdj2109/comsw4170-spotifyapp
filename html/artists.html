@@ -1,7 +1,9 @@
 
 <div layout="column" ng-controller="ArtistController" class="artistsPage">
+    <h2 class="message" ng-show="no_artists">You are not currently tracking any artists! Please use the search bar above to begin tracking your favorite artists.</h2>
 
-    <div flex layout="row" class="myArtists" ng-init="setFirst();">
+
+    <div flex layout="row" class="myArtists" ng-init="setFirst();" ng-hide="no_artists">
       <!--List of My Artists-->
       <div flex="20" class='artist-nav'>
             <div class="artist-panel-header">
