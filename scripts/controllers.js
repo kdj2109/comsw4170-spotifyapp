@@ -415,9 +415,6 @@ spotifyControllers.controller('ArtistController', function($scope, $http, $sce, 
   $scope.errormsg=false;
 
   $rootScope.no_artists = true;
-
-
-  // $scope.myArtists = localStorageService.get('userArtists') || ["U2", "Nick Jonas", "The Weeknd", "Drake", "Kendrick Lamar", "Fetty Wap","Beyonce", "Nicki Minaj", "Justin Bieber"];
   
   $scope.myArtists = userArtistsShared.get();
   var firstArtist;
@@ -438,8 +435,6 @@ spotifyControllers.controller('ArtistController', function($scope, $http, $sce, 
     firstArtist = localStorageService.get('lastArtist');
   }
 
-  console.log(firstArtist);
-
   $scope.setFirst = function() {
 
     if (firstArtist) {
@@ -451,11 +446,6 @@ spotifyControllers.controller('ArtistController', function($scope, $http, $sce, 
         }
   }
 
-  // if (!localStorageService.get('userArtists')) {
-  //   $scope.myArtists = ["U2", "Nick Jonas", "The Weeknd", "Drake", "Kendrick Lamar", "Fetty Wap","Beyonce", "Nicki Minaj", "Justin Bieber"];
-  //   localStorageService.set('userArtists', $scope.myArtists);
-  // }
-
   $scope.newsfeed = false;
   $scope.editing=false;
 
@@ -466,7 +456,6 @@ spotifyControllers.controller('ArtistController', function($scope, $http, $sce, 
 
   // reviews endpoint
   $scope.switchArtist = function(artistName) {
-
 
     // switching so update the localStorage and factory variable
     localStorageService.set('lastArtist', artistName);
@@ -627,13 +616,23 @@ $scope.edit = function(){
 
 
 $scope.deleteArtist = function(i){
+
+  var tmp = $scope.myArtists[i];
+
   $scope.myArtists.splice(i,1);
   localStorageService.set('userArtists', $scope.myArtists);
   userArtistsShared.set($scope.myArtists);
   if ($scope.myArtists.length == 0) {
     $rootScope.no_artists = true;
   }
-  
+
+  if (localStorageService.get('lastArtist') === tmp) {
+    localStorageService.set('lastArtist', '');
+    if($scope.myArtists[0]!=undefined) { 
+      $scope.switchArtist($scope.myArtists[0]); 
+      localStorageService.set('lastArtist', $scope.myArtists[0]);
+    }
+  }
 }
 
 });
