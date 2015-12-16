@@ -111,7 +111,7 @@ blockquote {
   border-left: 10px solid #ccc;
   margin: 1.5em 10px;
   padding: 0.5em 10px;
-  line-height: 1.5em;
+  line-height: 2em;
   quotes: "\201C" "\201D" "\2018" "\2019";
 }
 blockquote:before {
@@ -268,7 +268,6 @@ a:hover {
   line-height: 2;
   /*text-align: center;*/
 }
-
 .mouse {
   cursor: default;
 }
