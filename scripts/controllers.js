@@ -479,9 +479,11 @@ spotifyControllers.controller('ArtistController', function($scope, $http, $sce, 
         var index=0;
 
         for(var i=0;i<data.artists.items.length;i++){
-              if(data.artists.items[i].name==artistName){index=i;console.log(i);}
+          if(data.artists.items[i].name === artistName) {
+            index=i;
+            break;
+          }
         }
-
 
         // check if artist has any pictures, and if not, assign a no_img url
         if (data.artists.items[index].images.length > 0) {
@@ -664,7 +666,10 @@ spotifyControllers.controller('artistController', function($scope, $http, $locat
             var index=0;
 
             for(var i=0;i<data.artists.items.length;i++){
-              if(data.artists.items[i].name==artistName){index=i;console.log(i);}
+              if(data.artists.items[i].name === artistName) {
+                index=i;
+                break;
+              }
             }
 
 
