@@ -466,7 +466,7 @@ spotifyControllers.controller('ArtistController', function($scope, $http, $sce, 
         $scope.newsfeed=false;
 
     }else{
-      var url = 'https://api.spotify.com/v1/search?q='+artistName+'&type=artist&limit=1';
+      var url = 'https://api.spotify.com/v1/search?q='+artistName+'&type=artist&limit=5';
 
       //get artist ID from name
       $http.get(url).success(function(data) { 
@@ -476,16 +476,22 @@ spotifyControllers.controller('ArtistController', function($scope, $http, $sce, 
         $scope.artistNews;
         $scope.artistBlogs;
         $scope.artistReviews;
+        var index=0;
+
+        for(var i=0;i<data.artists.items.length;i++){
+              if(data.artists.items[i].name==artistName){index=i;console.log(i);}
+        }
+
 
         // check if artist has any pictures, and if not, assign a no_img url
-        if (data.artists.items[0].images.length > 0) {
-          $scope.artistPicture = data.artists.items[0].images[0].url;
+        if (data.artists.items[index].images.length > 0) {
+          $scope.artistPicture = data.artists.items[index].images[index].url;
         } else {
           $scope.artistPicture = '/assets/no_img.png';
         }
 
-        $scope.artistName = data.artists.items[0].name;
-        var artistID = data.artists.items[0].id
+        $scope.artistName = data.artists.items[index].name;
+        var artistID = data.artists.items[index].id
 
 
         //get top tracks from artist ID
@@ -648,24 +654,30 @@ spotifyControllers.controller('artistController', function($scope, $http, $locat
             $scope.newsfeed=false;
 
         }else{
-          var url = 'https://api.spotify.com/v1/search?q='+artistName+'&type=artist&limit=1';
-
+          var url = 'https://api.spotify.com/v1/search?q='+artistName+'&type=artist&limit=5';
+          console.log(artistName);
           //get artist ID from name
           $http.get(url).success(function(data) {
             $scope.newsfeed=true;
             $scope.artistData = data.artists;
             $scope.artistPicture;
+            var index=0;
+
+            for(var i=0;i<data.artists.items.length;i++){
+              if(data.artists.items[i].name==artistName){index=i;console.log(i);}
+            }
+
 
             // check if artist has any pictures, and if not, assign a no_img url
-            if (data.artists.items[0].images.length > 0) {
-              $scope.artistPicture = data.artists.items[0].images[0].url;
+            if (data.artists.items[index].images.length > 0) {
+              $scope.artistPicture = data.artists.items[index].images[index].url;
             } else {
               $scope.artistPicture = '/assets/no_img.png';
             }
 
 
-            $scope.artistName = data.artists.items[0].name;
-            var artistID = data.artists.items[0].id
+            $scope.artistName = data.artists.items[index].name;
+            var artistID = data.artists.items[index].id
             $scope.artistSpotifyUrl = "https://open.spotify.com/artist/"+artistID;
 
 
