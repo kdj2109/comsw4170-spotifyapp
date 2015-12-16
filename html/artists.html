@@ -63,7 +63,7 @@
 
     <div flex="100">
       <div class="newsfeed" id="newsfeed">
-            <div ng-cloak="" class="tabsdemoDynamicHeight">
+        <div ng-cloak="" class="tabsdemoDynamicHeight">
           <md-content>
             <md-tabs md-dynamic-height="" md-border-bottom="">
               <md-tab label="News">
@@ -87,7 +87,7 @@
               <md-tab label="Blog Posts">
                 <md-content class="md-padding">
                   <h1 class="md-display-2">Blog Posts</h1>
-                  <div ng-repeat="blog in artistBlogs">
+                  <div ng-repeat="blog in artistBlogs" ng-hide=noBlogPosts>
                       <md-card flex-gt-sm="90" flex-gt-md="80">
                           <md-card-content>
                               <md-list>
@@ -102,12 +102,15 @@
                           </md-card-content>
                       </md-card>
                   </div>
+                   <div ng-show=noBlogPosts>
+                    There seem to be no blog posts for this particular artist.
+                  </div>
                 </md-content>
               </md-tab>
               <md-tab label="Reviews">
                 <md-content class="md-padding">
                   <h1 class="md-display-2">Reviews</h1>
-                  <div ng-repeat="review in artistReviews">
+                  <div ng-repeat="review in artistReviews" ng-hide=noReviews>
                       <md-card flex-gt-sm="90" flex-gt-md="80">
                           <md-card-content>
                               <md-list>
@@ -121,6 +124,9 @@
                               </md-list> 
                           </md-card-content>
                       </md-card>
+                  </div>
+                  <div ng-show=noReviews>
+                    There seem to be no reviews of this particular artist.
                   </div>
                 </md-content>
               </md-tab>

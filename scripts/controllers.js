@@ -505,6 +505,8 @@ spotifyControllers.controller('ArtistController', function($scope, $http, $sce, 
             $scope.trackset="";
             $scope.artistData="";
             $scope.songs = data.tracks;
+            $scope.noReviews=false;
+            $scope.noBlogPosts=false;
             
             //create iframe spotify list
             for(var i=0; i<10;i++){
@@ -548,20 +550,30 @@ spotifyControllers.controller('ArtistController', function($scope, $http, $sce, 
               '&format=jsonp&api_key=NGB9ACOOVZV9AOTEZ&id=spotify:artist:'+artistID;
               $http.jsonp(url).success(function(data){
                 $scope.artistBlogs = data.response.blogs;
-                for(var i=0; i<$scope.artistBlogs.length;i++){
-                  $scope.artistBlogs[i].date_posted = formatDate($scope.artistBlogs[i].date_posted);
-                  $scope.artistBlogs[i].summary = formatText($scope.artistBlogs[i].summary);
-                  $scope.artistBlogs[i].name = formatText($scope.artistBlogs[i].name); 
-                }
+                if(data.response.blogs[0]!=undefined){
+                    $scope.noBlogPosts=false;
+                    for(var i=0; i<$scope.artistBlogs.length;i++){
+                      $scope.artistBlogs[i].date_posted = formatDate($scope.artistBlogs[i].date_posted);
+                      $scope.artistBlogs[i].summary = formatText($scope.artistBlogs[i].summary);
+                      $scope.artistBlogs[i].name = formatText($scope.artistBlogs[i].name); 
+                    }
+                  }else{
+                    $scope.noBlogPosts=true;
+                  }
                   //get artist reviews 
                   url = 'http://developer.echonest.com/api/v4/artist/reviews?callback=JSON_CALLBACK'+
                   '&format=jsonp&api_key=NGB9ACOOVZV9AOTEZ&id=spotify:artist:'+artistID;
                   $http.jsonp(url).success(function(data){
                   $scope.artistReviews = data.response.reviews;
-                    for(var i=0; i<$scope.artistReviews.length;i++){
-                      $scope.artistReviews[i].date_found = formatDate($scope.artistReviews[i].date_found);
-                      $scope.artistReviews[i].summary = formatText($scope.artistReviews[i].summary);
-                      $scope.artistReviews[i].name = formatText($scope.artistReviews[i].name); 
+                    if(data.response.reviews[0]!=undefined){
+                        $scope.noReviews=false;
+                        for(var i=0; i<$scope.artistReviews.length;i++){
+                          $scope.artistReviews[i].date_found = formatDate($scope.artistReviews[i].date_found);
+                          $scope.artistReviews[i].summary = formatText($scope.artistReviews[i].summary);
+                          $scope.artistReviews[i].name = formatText($scope.artistReviews[i].name); 
+                        }
+                    }else{
+                      $scope.noReviews=true;
                     }
                   }).error(function(data){
                     console.log("no reviews");
@@ -665,6 +677,9 @@ spotifyControllers.controller('artistController', function($scope, $http, $locat
                 $scope.trackset="";
                 $scope.artistData="";
                 $scope.songs = data.tracks;
+                $scope.errormsg=false;
+                $scope.noReviews=false;
+                $scope.noBlogPosts=false;
 
                 //create iframe spotify list
                 for(var i=0; i<10;i++){
@@ -683,25 +698,6 @@ spotifyControllers.controller('artistController', function($scope, $http, $locat
 
 
 
-                //get artists biographies news from echo
-
-                url = 'http://developer.echonest.com/api/v4/artist/news?callback=JSON_CALLBACK'+
-                '&format=jsonp&api_key=NGB9ACOOVZV9AOTEZ&id=spotify:artist:'+artistID;
-                $http.jsonp(url).success(function(data){
-                  $scope.artistNews = data.response.news;
-                  if(data.response.news[0]!=undefined){
-                      document.getElementById("newsfeed").style.visibility="visible";
-                      $scope.errormsg=false;
-                      for (var i=0;i<$scope.artistNews.length;i++){
-                         $scope.artistNews[i].date_found = formatDate( $scope.artistNews[i].date_found);
-                         $scope.artistNews[i].summary = formatText($scope.artistNews[i].summary);
-                         $scope.artistNews[i].name = formatText($scope.artistNews[i].name);
-                      }
-                    }else{
-                      document.getElementById("newsfeed").style.visibility="hidden";
-                      $scope.errormsg=true;
-                    }
-                });
 
                 //get artists biographies news from echo
 
@@ -712,15 +708,15 @@ spotifyControllers.controller('artistController', function($scope, $http, $locat
                   if(data.response.news[0]==undefined){
                     document.getElementById("newsfeed").style.visibility="hidden";
                     document.getElementById("artistPage").style.visibility="visible";
-                    console.log("here");
-                  }else{
+                    $scope.errormsg=true;
+                   }else{
                     for (var i=0;i<$scope.artistNews.length;i++){
                        $scope.artistNews[i].date_found = formatDate($scope.artistNews[i].date_found);
                        $scope.artistNews[i].summary = formatText($scope.artistNews[i].summary);
                        $scope.artistNews[i].name = formatText($scope.artistNews[i].name);
                        document.getElementById("artistPage").style.visibility="visible";
                        document.getElementById("newsfeed").style.visibility="visible";
-
+                       $scope.errormsg=false;
                     }
                   }
 
@@ -729,20 +725,30 @@ spotifyControllers.controller('artistController', function($scope, $http, $locat
                   '&format=jsonp&api_key=NGB9ACOOVZV9AOTEZ&id=spotify:artist:'+artistID;
                   $http.jsonp(url).success(function(data){
                     $scope.artistBlogs = data.response.blogs;
-                    for(var i=0; i<$scope.artistBlogs.length;i++){
-                      $scope.artistBlogs[i].date_posted = formatDate($scope.artistBlogs[i].date_posted);
-                      $scope.artistBlogs[i].summary = formatText($scope.artistBlogs[i].summary);
-                      $scope.artistBlogs[i].name = formatText($scope.artistBlogs[i].name);
+                    if(data.response.blogs[0]!=undefined){
+                      for(var i=0; i<$scope.artistBlogs.length;i++){
+                        $scope.noBlogPosts=false;
+                        $scope.artistBlogs[i].date_posted = formatDate($scope.artistBlogs[i].date_posted);
+                        $scope.artistBlogs[i].summary = formatText($scope.artistBlogs[i].summary);
+                        $scope.artistBlogs[i].name = formatText($scope.artistBlogs[i].name);
+                      }
+                    }else{
+                      $scope.noBlogPosts=true;
                     }
                       //get artist reviews
                       url = 'http://developer.echonest.com/api/v4/artist/reviews?callback=JSON_CALLBACK'+
                       '&format=jsonp&api_key=NGB9ACOOVZV9AOTEZ&id=spotify:artist:'+artistID;
                       $http.jsonp(url).success(function(data){
                       $scope.artistReviews = data.response.reviews;
-                        for(var i=0; i<$scope.artistReviews.length;i++){
-                          $scope.artistReviews[i].date_found = formatDate($scope.artistReviews[i].date_found);
-                          $scope.artistReviews[i].summary = formatText($scope.artistReviews[i].summary);
-                          $scope.artistReviews[i].name = formatText($scope.artistReviews[i].name);
+                        if(data.response.reviews[0]!=undefined){
+                          $scope.noReviews=false;
+                          for(var i=0; i<$scope.artistReviews.length;i++){
+                            $scope.artistReviews[i].date_found = formatDate($scope.artistReviews[i].date_found);
+                            $scope.artistReviews[i].summary = formatText($scope.artistReviews[i].summary);
+                            $scope.artistReviews[i].name = formatText($scope.artistReviews[i].name);
+                          }
+                        }else{
+                          $scope.noReviews=true;
                         }
                       }).error(function(data){
                         console.log("no reviews");
